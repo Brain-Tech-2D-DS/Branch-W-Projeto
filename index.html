@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Sistema de Controle de Sala</title>
 <style>
-  /* ===== TEMA CLARO (padrão, segue a tela de login: fundo azul + quadrados brancos) ===== */
+
+  /* <!-- ====================================
+<!-- PATAMAR 1: Background -->
+  <!-- =======================================
+  
+  /* P1.SEÇÃO 1: ===== TEMA CLARO (padrão, segue a tela de login: fundo azul + quadrados brancos) ===== */
   :root{
     --bg-solid:#1d3a86;
     --bg:linear-gradient(160deg,#0b1e4d 0%,#132a63 55%,#1d3a86 100%);
@@ -44,7 +49,7 @@
   .btn-outline{background:transparent;border:1px solid var(--input-border);color:var(--text);}
   .btn-link{background:transparent;color:var(--blue);padding:6px 0;font-weight:600;text-decoration:underline;font-size:12px;}
 
-  /* ---------- FUNDO DECORATIVO (bolinhas), aplicado ao site inteiro ---------- */
+  /* ---------- P1.SEÇÃO 2: FUNDO DECORATIVO ---------- */
   body::before{
     content:"";position:fixed;width:560px;height:560px;border-radius:50%;
     background:var(--blob-1);top:-200px;right:-180px;pointer-events:none;z-index:0;
@@ -55,7 +60,7 @@
   }
   #loginScreen, #app{position:relative;z-index:1;}
 
-  /* ---------- LOGIN ---------- */
+  /* ---------- P1.SEÇÃO 2: LOGIN ---------- */
   #loginScreen{display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px;}
   .login-center{width:100%;max-width:420px;display:flex;flex-direction:column;align-items:center;text-align:center;}
   .login-welcome{color:#fff;font-size:34px;margin:0 0 8px;letter-spacing:.01em;text-shadow:0 2px 10px rgba(0,0,0,.25);}
@@ -71,7 +76,9 @@
   .login-card .divider{display:flex;align-items:center;gap:10px;margin:18px 0;color:var(--muted);font-size:12px;}
   .login-card .divider::before,.login-card .divider::after{content:"";flex:1;height:1px;background:var(--border);}
 
-  /* ---------- APP SHELL ---------- */
+  /* ---------- P1.SEÇÃO 3: APP SHELL ---------- */
+  /*Oque ele vai fazer: é a estrutura básica de HTML, CSS e JavaScript mínima necessária para carregar e exibir a interface de usuário de um aplicativo web*/
+  
   .wrap{max-width:1150px;margin:0 auto;padding:20px;}
   #app.entering{animation:appIn .6s ease forwards;}
   @keyframes appIn{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
@@ -122,7 +129,8 @@
   body.dark-theme .notice.ok{color:#86efac;}
   body.dark-theme .notice.warn{color:#fca5a5;}
 
-  /* tooltip para passe livre */
+  /* P1.SEÇÃO 4: tooltip para passe livre */
+  /* Oque vai fazer: Vai gerar um Tooltip que vai ficar no nome da pessoa, e quando o mouse passar em cima, vai mostrar se e passe livre ou não e vai mostrar motivo e tempo de passe livre*/
   .has-tip{position:relative;cursor:help;border-bottom:1px dashed var(--blue);}
   .has-tip:hover::after{
     content:attr(data-tip);position:absolute;left:0;top:120%;background:#111827;color:#fff;
@@ -130,20 +138,23 @@
     width:230px;z-index:20;box-shadow:0 8px 20px rgba(0,0,0,.3);
   }
 
-  /* Registro panel */
+  /* P1.SEÇÃO 5: Registro panel */
+  /* Oque vai fazer: E apenas o painel de registro dos usuarios*/
   .registro-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   @media (max-width:760px){.registro-cols{grid-template-columns:1fr;}}
   .segunda-box{margin-top:14px;border:1px solid rgba(59,130,246,.35);background:rgba(59,130,246,.06);border-radius:12px;padding:12px 14px;}
   .segunda-box h4{margin:0 0 8px;color:var(--text);font-size:13px;text-transform:uppercase;letter-spacing:.03em;}
 
-  /* Modal */
+  /* P1.SEÇÃO 6: Modal */
+  /* Oque vai fazer: Modelo do site*/
   .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px;}
   .modal{background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:18px;padding:26px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow);}
   .modal.small{max-width:420px;}
   .modal h3{margin-top:0;}
   .modal-close-row{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;}
 
-  /* config tabs */
+  /* P1.SEÇÃO 7: config tabs */
+  /* Oque vai fazer: vai ser a base de cards e cores */
   .cfg-tabs{display:flex;gap:8px;margin-bottom:16px;}
   .cfg-tab{background:var(--card-2);color:var(--text);border:1px solid var(--border);}
   .cfg-tab.active{background:var(--blue);color:#fff;}
@@ -156,7 +167,8 @@
   .swatch-light{background:linear-gradient(135deg,#1d3a86,#fff 55%);}
   .swatch-dark{background:linear-gradient(135deg,#050b1f,#0a0a0c 55%);}
 
-  /* toggle switch */
+  /* P1.SEÇÃO 8: toggle switch */
+  /* Oque vai fazer: Botão de troca troca*/
   .switch-row{display:flex;align-items:center;justify-content:space-between;background:var(--card-2);padding:10px 14px;border-radius:10px;margin-top:10px;}
   .switch{position:relative;width:52px;height:28px;flex-shrink:0;}
   .switch input{display:none;}
@@ -165,7 +177,8 @@
   .switch input:checked + .slider{background:var(--success);}
   .switch input:checked + .slider::before{transform:translateX(24px);}
 
-  /* Print area */
+  /* P1.SEÇÃO 9: Print area */
+  /* Oque vai fazer: Vai salvar informações */
   #printArea{display:none;}
   @media print{
     body *{visibility:hidden;}
@@ -180,7 +193,12 @@
 </head>
 <body>
 
-<!-- ================= LOGIN ================= -->
+  <!-- =======================================
+<!-- PATAMAR 2: Codigo principal -->
+  <!-- =======================================
+
+<!-- P2.SEÇÃO 1: ================= LOGIN ================= -->
+  <!-- oque é: Painel principal de login, tudo relacionado a login, esta aqui -->
 <div id="loginScreen">
   <div class="login-center">
     <h1 class="login-welcome">Bem-vindo(a)</h1>
@@ -219,7 +237,7 @@
         <button class="btn-outline" onclick="togglePane('login')">Voltar para Entrar</button>
       </div>
 
-      <!-- ---- ESQUECI LOGIN/SENHA ---- -->
+      <!-- ---- P2.SEÇÃO 2: ESQUECI LOGIN/SENHA ---- -->
       <div id="forgotPane" class="hidden">
         <h2>Esqueci meu Login ou Senha</h2>
         <p class="sub">Informe seu usuário ou e-mail cadastrado. Enviaremos um e-mail para o endereço cadastrado na conta.</p>
@@ -249,7 +267,7 @@
         <button class="btn-outline" onclick="togglePane('login')">Voltar para Entrar</button>
       </div>
 
-      <!-- ---- ESQUECI E-MAIL ---- -->
+      <!-- ----P2.SEÇÃO 3: ESQUECI E-MAIL ---- -->
       <div id="forgotEmailPane" class="hidden">
         <h2>Esqueci meu E-mail</h2>
         <p class="sub">Confirme seu usuário e senha e informe o novo e-mail. Enviaremos a confirmação para esse novo endereço.</p>
@@ -265,7 +283,11 @@
   </div>
 </div>
 
-<!-- ================= APP ================= -->
+  <!-- =======================================
+<!-- PATAMAR 3: Estrutura Principal -->
+  <!-- =======================================
+  
+<!-- P3.SEÇÃO 1: ================= APP ================= -->
 <div id="app" class="hidden">
   <div class="wrap">
     <div class="greeting" id="greeting">-</div>
@@ -293,7 +315,7 @@
         <button id="tabBtnGestao" class="tab hidden" onclick="showTab('gestao')">Gestão</button>
       </div>
 
-      <!-- ---- BANHEIRO ---- -->
+      <!-- ---- P3.SEÇÃO 2: BANHEIRO ---- -->
       <div id="tabBanheiro" class="tab-content">
         <div class="card">
           <div class="card-head">
