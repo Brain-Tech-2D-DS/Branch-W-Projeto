@@ -5,488 +5,434 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Sistema de Controle de Sala</title>
 <style>
+/*
+==============================
+PATAMAR 1: ESTILOS (CSS)
+==============================
+*/
 
-  /* <!-- ====================================
-<!-- PATAMAR 1: Background -->
-  <!-- =======================================
-  
-  /* P1.SEÇÃO 1: ===== TEMA CLARO (padrão, segue a tela de login: fundo azul + quadrados brancos) ===== */
-  :root{
-    --bg-solid:#1d3a86;
-    --bg:linear-gradient(160deg,#0b1e4d 0%,#132a63 55%,#1d3a86 100%);
-    --panel:#ffffff; --card:#ffffff; --card-2:#f4f6fb;
-    --text:#111827; --muted:#6b7280;
-    --blue:#1d4ed8; --blue-light:#3b82f6;
-    --success:#16a34a; --warning:#d97706; --danger:#dc2626;
-    --border:rgba(17,24,39,0.10); --radius:18px;
-    --shadow:0 16px 40px rgba(10,20,60,0.28);
-    --input-bg:#f9fafb; --input-text:#111827; --input-border:#e5e7eb;
-    --blob-1:rgba(255,255,255,.06); --blob-2:rgba(255,255,255,.045);
-  }
-  body.dark-theme{
-    --bg-solid:#050b1f;
-    --bg:linear-gradient(160deg,#04060f 0%,#070c1c 55%,#0a1330 100%);
-    --panel:#0a0a0c; --card:#0a0a0c; --card-2:#151517;
-    --text:#f3f4f6; --muted:#9ca3af;
-    --border:rgba(255,255,255,0.10);
-    --shadow:0 16px 40px rgba(0,0,0,0.5);
-    --input-bg:#151517; --input-text:#f3f4f6; --input-border:#2a2a2e;
-    --blob-1:rgba(156,163,175,.12); --blob-2:rgba(156,163,175,.08);
-  }
-  *{box-sizing:border-box;}
-  body{margin:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);min-height:100vh;color:var(--text);transition:background .3s;position:relative;overflow-x:hidden;}
-  .hidden{display:none !important;}
-  button{border:none;padding:10px 16px;border-radius:10px;font-weight:700;cursor:pointer;color:#fff;font-size:14px;transition:.15s;}
-  button:hover{filter:brightness(1.08);}
-  button:active{transform:scale(.97);}
-  input,select,textarea{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--input-border);background:var(--input-bg);color:var(--input-text);margin-top:6px;font-size:14px;font-family:inherit;}
-  label{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em;}
-  .btn-blue{background:var(--blue);}
-  .btn-success{background:var(--success);}
-  .btn-warning{background:var(--warning);}
-  .btn-danger{background:var(--danger);}
-  .btn-gray{background:#6b7280;}
-  .btn-outline{background:transparent;border:1px solid var(--input-border);color:var(--text);}
-  .btn-link{background:transparent;color:var(--blue);padding:6px 0;font-weight:600;text-decoration:underline;font-size:12px;}
+/* ------ P1.SEÇÃO 1: TEMAS CLARO E ESCURO (cores mantidas) ------ */
+:root{
+  --bg-solid:#1d3a86;
+  --bg:linear-gradient(160deg,#0b1e4d 0%,#132a63 55%,#1d3a86 100%);
+  --panel:#ffffff; --card:#ffffff; --card-2:#f4f6fb;
+  --text:#111827; --muted:#6b7280;
+  --blue:#1d4ed8; --blue-light:#3b82f6;
+  --success:#16a34a; --warning:#d97706; --danger:#dc2626;
+  --border:rgba(17,24,39,0.10); --radius:18px;
+  --shadow:0 16px 40px rgba(10,20,60,0.28);
+  --input-bg:#f9fafb; --input-text:#111827; --input-border:#e5e7eb;
+  --blob-1:rgba(255,255,255,.06); --blob-2:rgba(255,255,255,.045);
+  --fs:15px; --br:1;
+}
+body.dark-theme{
+  --bg-solid:#050b1f;
+  --bg:linear-gradient(160deg,#04060f 0%,#070c1c 55%,#0a1330 100%);
+  --panel:#0a0a0c; --card:#0a0a0c; --card-2:#151517;
+  --text:#f3f4f6; --muted:#9ca3af;
+  --border:rgba(255,255,255,0.10);
+  --shadow:0 16px 40px rgba(0,0,0,0.5);
+  --input-bg:#151517; --input-text:#f3f4f6; --input-border:#2a2a2e;
+  --blob-1:rgba(156,163,175,.12); --blob-2:rgba(156,163,175,.08);
+}
 
-  /* ---------- P1.SEÇÃO 2: FUNDO DECORATIVO ---------- */
-  body::before{
-    content:"";position:fixed;width:560px;height:560px;border-radius:50%;
-    background:var(--blob-1);top:-200px;right:-180px;pointer-events:none;z-index:0;
-  }
-  body::after{
-    content:"";position:fixed;width:400px;height:400px;border-radius:50%;
-    background:var(--blob-2);bottom:-160px;left:-120px;pointer-events:none;z-index:0;
-  }
-  #loginScreen, #app{position:relative;z-index:1;}
+/* ------ P1.SEÇÃO 2: BASE (reset, botões, inputs) ------ */
+*{box-sizing:border-box;}
+body{margin:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);min-height:100vh;color:var(--text);transition:background .3s;position:relative;overflow-x:hidden;}
+.hidden{display:none !important;}
+button{border:none;padding:10px 16px;border-radius:10px;font-weight:700;cursor:pointer;color:#fff;font-size:.93em;transition:.15s;font-family:inherit;}
+button:hover{filter:brightness(1.08);}
+button:active{transform:scale(.97);}
+input,select,textarea{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--input-border);background:var(--input-bg);color:var(--input-text);margin-top:6px;font-size:.93em;font-family:inherit;}
+label{font-size:.8em;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em;}
+.btn-blue{background:var(--blue);} .btn-success{background:var(--success);} .btn-warning{background:var(--warning);} .btn-danger{background:var(--danger);} .btn-gray{background:#6b7280;}
+.btn-outline{background:transparent;border:1px solid var(--input-border);color:var(--text);}
+.btn-link{background:transparent;color:var(--blue);padding:6px 0;font-weight:600;text-decoration:underline;font-size:.85em;}
+.full{width:100%;margin-top:6px;}
 
-  /* ---------- P1.SEÇÃO 2: LOGIN ---------- */
-  #loginScreen{display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px;}
-  .login-center{width:100%;max-width:420px;display:flex;flex-direction:column;align-items:center;text-align:center;}
-  .login-welcome{color:#fff;font-size:34px;margin:0 0 8px;letter-spacing:.01em;text-shadow:0 2px 10px rgba(0,0,0,.25);}
-  .login-tagline{color:#c7d2fe;max-width:380px;line-height:1.6;margin:0 0 26px;font-size:14px;}
-  .login-card{background:var(--card);color:var(--text);width:100%;border-radius:20px;padding:36px 32px;box-shadow:var(--shadow);text-align:left;}
-  .login-card.leaving{transition:transform .55s cubic-bezier(.4,0,.2,1),opacity .5s ease;transform:translateY(-140%);opacity:0;}
-  .login-card h2{margin:0 0 4px;font-size:22px;color:var(--text);}
-  .login-card p.sub{margin:0 0 20px;color:var(--muted);font-size:13px;}
-  .login-card label{color:var(--muted);}
-  .login-card input,.login-card select{background:var(--input-bg);border:1px solid var(--input-border);color:var(--input-text);}
-  .login-card .field{margin-bottom:14px;}
-  .login-card button{width:100%;margin-top:6px;}
-  .login-card .divider{display:flex;align-items:center;gap:10px;margin:18px 0;color:var(--muted);font-size:12px;}
-  .login-card .divider::before,.login-card .divider::after{content:"";flex:1;height:1px;background:var(--border);}
+/* ------ P1.SEÇÃO 3: FUNDO DECORATIVO (bolinhas mantidas) ------ */
+body::before{content:"";position:fixed;width:560px;height:560px;border-radius:50%;background:var(--blob-1);top:-200px;right:-180px;pointer-events:none;z-index:0;}
+body::after{content:"";position:fixed;width:400px;height:400px;border-radius:50%;background:var(--blob-2);bottom:-160px;left:-120px;pointer-events:none;z-index:0;}
+#loginScreen, #app{position:relative;z-index:1;}
 
-  /* ---------- P1.SEÇÃO 3: APP SHELL ---------- */
-  /*Oque ele vai fazer: é a estrutura básica de HTML, CSS e JavaScript mínima necessária para carregar e exibir a interface de usuário de um aplicativo web*/
-  
-  .wrap{max-width:1150px;margin:0 auto;padding:20px;}
-  #app.entering{animation:appIn .6s ease forwards;}
-  @keyframes appIn{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+/* ------ P1.SEÇÃO 4: TELA DE LOGIN (quadrado da esquerda até o meio) ------ */
+.login-left{position:fixed;left:0;top:0;bottom:0;width:50%;background:var(--card);color:var(--text);padding:40px 48px;overflow-y:auto;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:center;z-index:2;}
+.login-left.leaving{transition:transform .55s cubic-bezier(.4,0,.2,1),opacity .5s ease;transform:translateX(-110%);opacity:0;}
+.login-left h2{margin:0 0 4px;font-size:1.5em;}
+.login-left p.sub{margin:0 0 18px;color:var(--muted);font-size:.9em;}
+.login-left .field{margin-bottom:14px;}
+.login-left .divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--muted);font-size:.8em;}
+.login-left .divider::before,.login-left .divider::after{content:"";flex:1;height:1px;background:var(--border);}
+.login-right{position:fixed;right:0;top:0;bottom:0;width:50%;display:flex;flex-direction:column;justify-content:center;padding:48px;color:#fff;z-index:1;}
+.login-welcome{font-size:38px;margin:0 0 8px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+.login-tagline{color:#c7d2fe;max-width:400px;line-height:1.6;font-size:15px;}
+.role-row{display:flex;gap:8px;margin-top:6px;}
+.role-opt{flex:1;background:var(--card-2);color:var(--text);border:2px solid var(--border);}
+.role-opt.selected{background:var(--blue);border-color:var(--blue);color:#fff;}
+.link-row{display:flex;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:4px;}
+@media (max-width:800px){.login-left{width:100%;padding:28px 22px;}.login-right{display:none;}}
 
-  .greeting{color:#fff;font-size:20px;font-weight:800;margin-bottom:14px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+/* ------ P1.SEÇÃO 5: ESTRUTURA DO APP (retângulo lateral + área de conteúdo) ------ */
+#app{display:flex;min-height:100vh;font-size:var(--fs);filter:brightness(var(--br));}
+#app.entering{animation:appIn .6s ease forwards;}
+@keyframes appIn{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.sidebar{width:290px;flex-shrink:0;background:var(--card);height:100vh;position:sticky;top:0;padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow);overflow-y:auto;}
+.greeting{font-size:1.15em;font-weight:800;color:var(--text);}
+.whoami{display:flex;align-items:center;gap:12px;}
+.avatar{width:56px;height:56px;border-radius:50%;background:var(--blue-light) center/cover no-repeat;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#fff;flex-shrink:0;}
+.whoami .nick{font-weight:700;color:var(--text);word-break:break-all;}
+.whoami .role{font-size:.85em;color:var(--muted);margin-bottom:6px;}
+.btn-config{background:var(--card-2);color:var(--text);border:1px solid var(--border);padding:6px 10px;}
+.nav{display:flex;flex-direction:column;gap:8px;margin-top:6px;}
+.nav-btn{width:100%;text-align:left;background:var(--card-2);color:var(--text);border:1px solid var(--border);}
+.nav-btn.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+.side-bottom{margin-top:auto;}
+.main{flex:1;padding:24px;min-width:0;}
+.panel{background:var(--card);border-radius:24px;padding:26px;box-shadow:var(--shadow);min-height:calc(100vh - 48px);}
+.area-title{font-size:1.6em;margin:0 0 14px;color:var(--text);}
+.area{margin-bottom:30px;padding-bottom:22px;border-bottom:1px solid var(--border);}
+.edit-row{margin-top:12px;}
+@media (max-width:800px){#app{flex-direction:column;}.sidebar{width:100%;height:auto;position:static;}.panel{min-height:0;}}
 
-  .app-panel{background:var(--card);border-radius:24px;padding:26px;box-shadow:var(--shadow);}
+/* ------ P1.SEÇÃO 6: COMPONENTES (cards, listas, badges, avisos, tooltip) ------ */
+.card{background:var(--card-2);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin-bottom:18px;color:var(--text);}
+.card h3{margin-top:0;}
+.card-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media (max-width:640px){.row2{grid-template-columns:1fr;}}
+.list-item{background:var(--card);padding:12px 14px;border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+.list-item .info{display:flex;flex-direction:column;}
+.subtext{font-size:.85em;color:var(--muted);margin-top:2px;}
+.status-normal{color:var(--text);} .status-yellow{color:var(--warning) !important;} .status-red{color:var(--danger) !important;} .status-pass{color:var(--blue) !important;}
+.badge{padding:3px 10px;border-radius:999px;font-size:.8em;font-weight:700;}
+.badge-normal{background:rgba(107,114,128,.15);color:var(--muted);}
+.badge-yellow{background:rgba(217,119,6,.15);color:var(--warning);}
+.badge-red{background:rgba(220,38,38,.15);color:var(--danger);}
+.badge-blue{background:rgba(59,130,246,.15);color:var(--blue);}
+.empty{color:var(--muted);font-size:.9em;font-style:italic;padding:10px 0;}
+.notice{padding:12px 14px;border-radius:10px;margin:10px 0;font-weight:700;font-size:.9em;}
+.notice.info{background:rgba(59,130,246,.14);color:#2563eb;}
+.notice.ok{background:rgba(22,163,74,.14);color:#16a34a;}
+.notice.warn{background:rgba(220,38,38,.14);color:#dc2626;}
+body.dark-theme .notice.info{color:#93c5fd;} body.dark-theme .notice.ok{color:#86efac;} body.dark-theme .notice.warn{color:#fca5a5;}
+.has-tip{position:relative;cursor:help;border-bottom:1px dashed var(--blue);}
+.has-tip:hover::after{content:attr(data-tip);position:absolute;left:0;top:120%;background:#111827;color:#fff;padding:8px 10px;border-radius:8px;font-size:12px;font-weight:500;white-space:pre-line;width:230px;z-index:20;box-shadow:0 8px 20px rgba(0,0,0,.3);}
+.registro-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media (max-width:760px){.registro-cols{grid-template-columns:1fr;}}
+.segunda-box{margin-top:14px;border:1px solid rgba(59,130,246,.35);background:rgba(59,130,246,.06);border-radius:12px;padding:12px 14px;}
+.segunda-box h4{margin:0 0 8px;font-size:.9em;text-transform:uppercase;letter-spacing:.03em;}
+.theme-choice{display:flex;gap:12px;margin-top:10px;max-width:420px;}
+.theme-opt{flex:1;border:2px solid var(--border);border-radius:12px;padding:14px;text-align:center;cursor:pointer;background:var(--card-2);color:var(--text);}
+.theme-opt.selected{border-color:var(--blue);}
+.theme-swatch{height:36px;border-radius:8px;margin-bottom:8px;}
+.swatch-light{background:linear-gradient(135deg,#1d3a86,#fff 55%);} .swatch-dark{background:linear-gradient(135deg,#050b1f,#0a0a0c 55%);}
+input[type=range]{padding:0;}
 
-  header.topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:18px;flex-wrap:wrap;}
-  .whoami-col{display:flex;flex-direction:column;align-items:flex-start;gap:8px;}
-  .whoami{display:flex;align-items:center;gap:12px;}
-  .avatar{width:52px;height:52px;border-radius:50%;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff;flex-shrink:0;}
-  .whoami .meta div{line-height:1.35;}
-  .whoami .nick{font-weight:700;font-size:16px;color:var(--text);}
-  .whoami .role{font-size:12px;color:var(--muted);}
-  .btn-config{background:var(--card-2);color:var(--text);border:1px solid var(--border);display:flex;align-items:center;gap:8px;}
-  .btn-config .gear{font-size:16px;}
-  .header-actions{display:flex;gap:8px;flex-wrap:wrap;}
+/* ------ P1.SEÇÃO 7: MODAL ------ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px;}
+.modal{background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:18px;padding:26px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow);}
+.modal.small{max-width:420px;}
+.modal h3{margin-top:0;}
+.modal-close-row{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;}
 
-  .tabs{display:flex;gap:8px;margin-bottom:18px;overflow-x:auto;padding-bottom:4px;}
-  .tab{background:var(--card-2);color:var(--muted);}
-  .tab.active{background:var(--blue);color:#fff;}
+/* ------ P1.SEÇÃO 8: SWITCH ------ */
+.switch-row{display:flex;align-items:center;justify-content:space-between;background:var(--card-2);padding:10px 14px;border-radius:10px;margin-top:10px;}
+.switch{position:relative;width:52px;height:28px;flex-shrink:0;}
+.switch input{display:none;}
+.switch .slider{position:absolute;inset:0;background:#d1d5db;border-radius:999px;cursor:pointer;transition:.2s;}
+.switch .slider::before{content:"";position:absolute;width:22px;height:22px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;}
+.switch input:checked + .slider{background:var(--success);}
+.switch input:checked + .slider::before{transform:translateX(24px);}
 
-  .card{background:var(--card-2);border:1px solid var(--border);border-radius:var(--radius);box-shadow:none;padding:22px;margin-bottom:18px;color:var(--text);}
-  .card h3{margin-top:0;}
-  .card-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  @media (max-width:640px){.row2{grid-template-columns:1fr;}}
-
-  .list-item{background:var(--card);padding:12px 14px;border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
-  .list-item .info{display:flex;flex-direction:column;}
-  .list-item .subtext{font-size:12px;color:var(--muted);margin-top:2px;}
-  .status-normal{color:var(--text);}
-  .status-yellow{color:var(--warning) !important;}
-  .status-red{color:var(--danger) !important;}
-  .status-pass{color:var(--blue) !important;}
-  .badge{padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700;}
-  .badge-normal{background:rgba(107,114,128,.15);color:var(--muted);}
-  .badge-yellow{background:rgba(217,119,6,.15);color:var(--warning);}
-  .badge-red{background:rgba(220,38,38,.15);color:var(--danger);}
-  .badge-blue{background:rgba(59,130,246,.15);color:var(--blue);}
-  .empty{color:var(--muted);font-size:13px;font-style:italic;padding:10px 0;}
-  .notice{padding:12px 14px;border-radius:10px;margin:10px 0;font-weight:700;font-size:13px;}
-  .notice.info{background:rgba(59,130,246,.14);color:#2563eb;}
-  .notice.ok{background:rgba(22,163,74,.14);color:#16a34a;}
-  .notice.warn{background:rgba(220,38,38,.14);color:#dc2626;}
-  body.dark-theme .notice.info{color:#93c5fd;}
-  body.dark-theme .notice.ok{color:#86efac;}
-  body.dark-theme .notice.warn{color:#fca5a5;}
-
-  /* P1.SEÇÃO 4: tooltip para passe livre */
-  /* Oque vai fazer: Vai gerar um Tooltip que vai ficar no nome da pessoa, e quando o mouse passar em cima, vai mostrar se e passe livre ou não e vai mostrar motivo e tempo de passe livre*/
-  .has-tip{position:relative;cursor:help;border-bottom:1px dashed var(--blue);}
-  .has-tip:hover::after{
-    content:attr(data-tip);position:absolute;left:0;top:120%;background:#111827;color:#fff;
-    padding:8px 10px;border-radius:8px;font-size:12px;font-weight:500;white-space:pre-line;
-    width:230px;z-index:20;box-shadow:0 8px 20px rgba(0,0,0,.3);
-  }
-
-  /* P1.SEÇÃO 5: Registro panel */
-  /* Oque vai fazer: E apenas o painel de registro dos usuarios*/
-  .registro-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  @media (max-width:760px){.registro-cols{grid-template-columns:1fr;}}
-  .segunda-box{margin-top:14px;border:1px solid rgba(59,130,246,.35);background:rgba(59,130,246,.06);border-radius:12px;padding:12px 14px;}
-  .segunda-box h4{margin:0 0 8px;color:var(--text);font-size:13px;text-transform:uppercase;letter-spacing:.03em;}
-
-  /* P1.SEÇÃO 6: Modal */
-  /* Oque vai fazer: Modelo do site*/
-  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px;}
-  .modal{background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:18px;padding:26px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow);}
-  .modal.small{max-width:420px;}
-  .modal h3{margin-top:0;}
-  .modal-close-row{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;}
-
-  /* P1.SEÇÃO 7: config tabs */
-  /* Oque vai fazer: vai ser a base de cards e cores */
-  .cfg-tabs{display:flex;gap:8px;margin-bottom:16px;}
-  .cfg-tab{background:var(--card-2);color:var(--text);border:1px solid var(--border);}
-  .cfg-tab.active{background:var(--blue);color:#fff;}
-  .cfg-pane{display:none;}
-  .cfg-pane.active{display:block;}
-  .theme-choice{display:flex;gap:12px;margin-top:10px;}
-  .theme-opt{flex:1;border:2px solid var(--border);border-radius:12px;padding:14px;text-align:center;cursor:pointer;background:var(--card-2);color:var(--text);}
-  .theme-opt.selected{border-color:var(--blue);}
-  .theme-swatch{height:36px;border-radius:8px;margin-bottom:8px;}
-  .swatch-light{background:linear-gradient(135deg,#1d3a86,#fff 55%);}
-  .swatch-dark{background:linear-gradient(135deg,#050b1f,#0a0a0c 55%);}
-
-  /* P1.SEÇÃO 8: toggle switch */
-  /* Oque vai fazer: Botão de troca troca*/
-  .switch-row{display:flex;align-items:center;justify-content:space-between;background:var(--card-2);padding:10px 14px;border-radius:10px;margin-top:10px;}
-  .switch{position:relative;width:52px;height:28px;flex-shrink:0;}
-  .switch input{display:none;}
-  .switch .slider{position:absolute;inset:0;background:#d1d5db;border-radius:999px;cursor:pointer;transition:.2s;}
-  .switch .slider::before{content:"";position:absolute;width:22px;height:22px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;}
-  .switch input:checked + .slider{background:var(--success);}
-  .switch input:checked + .slider::before{transform:translateX(24px);}
-
-  /* P1.SEÇÃO 9: Print area */
-  /* Oque vai fazer: Vai salvar informações */
-  #printArea{display:none;}
-  @media print{
-    body *{visibility:hidden;}
-    #printArea, #printArea *{visibility:visible;}
-    #printArea{display:block;position:absolute;top:0;left:0;width:100%;padding:20px;color:#000;background:#fff;}
-    #printArea h2{margin-bottom:2px;}
-    #printArea .p-row{margin:10px 0;}
-    #printArea .p-label{font-weight:700;font-size:12px;text-transform:uppercase;color:#333;}
-    #printArea .p-val{border-bottom:1px solid #999;padding:6px 0;min-height:18px;}
-  }
+/* ------ P1.SEÇÃO 9: IMPRESSÃO ------ */
+#printArea{display:none;}
+@media print{
+  body *{visibility:hidden;}
+  #printArea, #printArea *{visibility:visible;}
+  #printArea{display:block;position:absolute;top:0;left:0;width:100%;padding:20px;color:#000;background:#fff;}
+  #printArea .p-row{margin:10px 0;}
+  #printArea .p-label{font-weight:700;font-size:12px;text-transform:uppercase;color:#333;}
+  #printArea .p-val{border-bottom:1px solid #999;padding:6px 0;min-height:18px;}
+}
 </style>
 </head>
 <body>
 
-  <!-- =======================================
-<!-- PATAMAR 2: Codigo principal -->
-  <!-- =======================================
+<!--
+==============================
+PATAMAR 2: TELA DE LOGIN
+==============================
+-->
 
-<!-- P2.SEÇÃO 1: ================= LOGIN ================= -->
-  <!-- oque é: Painel principal de login, tudo relacionado a login, esta aqui -->
+<!-- ------ P2.SEÇÃO 1: ENTRAR ------ -->
 <div id="loginScreen">
-  <div class="login-center">
+  <div class="login-right">
     <h1 class="login-welcome">Bem-vindo(a)</h1>
     <p class="login-tagline">Presença, saídas ao banheiro e ocorrências, tudo em um só lugar para professores e gestão escolar.</p>
-    <div class="login-card" id="loginCard">
-      <div id="loginPane">
-        <h2>Entrar</h2>
-        <p class="sub">Acesse com usuário, senha e código de acesso da escola.</p>
-        <div class="field"><label>Usuário</label><input id="loginUser" placeholder="Seu usuário" /></div>
-        <div class="field"><label>Senha</label><input id="loginPass" type="password" placeholder="Sua senha" /></div>
-        <div class="field"><label>Código de acesso</label><input id="loginCode" placeholder="Exemplo: XXXXXX" /></div>
-        <button class="btn-blue" onclick="login()">Entrar</button>
-        <div style="display:flex;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:4px;">
-          <button type="button" class="btn-link" style="padding:0;" onclick="togglePane('forgot')">Esqueci meu Login ou Senha</button>
-          <button type="button" class="btn-link" style="padding:0;" onclick="togglePane('forgotEmail')">Esqueci meu e-mail</button>
+  </div>
+  <div class="login-left" id="loginCard">
+    <div id="loginPane">
+      <h2>Entrar</h2>
+      <p class="sub">Acesse com usuário ou e-mail, senha e código de acesso.</p>
+      <div class="field">
+        <label>Tipo de conta</label>
+        <div class="role-row">
+          <button type="button" class="role-opt selected" data-scope="login" data-role="normal" onclick="pickRole('login','normal')">Professor</button>
+          <button type="button" class="role-opt" data-scope="login" data-role="gestao" onclick="pickRole('login','gestao')">Gestão</button>
         </div>
-        <div class="divider">ou</div>
-        <button class="btn-outline" onclick="togglePane('create')">Criar Conta</button>
       </div>
+      <div class="field"><label>Usuário ou e-mail</label><input id="loginUser" placeholder="Seu usuário ou email" /></div>
+      <div class="field"><label>Senha</label><input id="loginPass" type="password" placeholder="Sua senha" /></div>
+      <div class="field"><label>Código de acesso</label><input id="loginCode" placeholder="Exemplo: XXXXXX" /></div>
+      <button class="btn-blue full" onclick="login()">Entrar</button>
+      <div class="link-row">
+        <button type="button" class="btn-link" style="padding:0;" onclick="togglePane('forgot')">Esqueci meu Login ou Senha</button>
+        <button type="button" class="btn-link" style="padding:0;" onclick="togglePane('forgotEmail')">Esqueci meu e-mail</button>
+      </div>
+      <div class="link-row">
+        <button type="button" class="btn-link" style="padding:0;" onclick="openForgotCode()">Esqueci o código de acesso</button>
+      </div>
+      <div class="divider">ou</div>
+      <button class="btn-outline full" onclick="togglePane('create')">Criar Conta</button>
+    </div>
 
-      <div id="createPane" class="hidden">
-        <h2>Criar Conta</h2>
-        <p class="sub">Cadastre-se para começar a usar o sistema.</p>
-        <div class="field">
-          <label>Tipo de conta</label>
-          <select id="newRole">
-            <option value="normal">Professor</option>
-            <option value="gestao">Gestão</option>
-          </select>
+<!-- ------ P2.SEÇÃO 2: CRIAR CONTA ------ -->
+    <div id="createPane" class="hidden">
+      <h2>Criar Conta</h2>
+      <p class="sub">Cadastre-se para começar a usar o sistema.</p>
+      <div class="field">
+        <label>Tipo de conta</label>
+        <div class="role-row">
+          <button type="button" class="role-opt selected" data-scope="new" data-role="normal" onclick="pickRole('new','normal')">Professor</button>
+          <button type="button" class="role-opt" data-scope="new" data-role="gestao" onclick="pickRole('new','gestao')">Gestão</button>
         </div>
-        <div class="field"><label>Usuário</label><input id="newUser" placeholder="Escolha um usuário" /></div>
-        <div class="field"><label>E-mail</label><input id="newEmail" type="email" placeholder="seu@email.com" /></div>
-        <div class="field"><label>Senha</label><input id="newPass" type="password" placeholder="Escolha uma senha" /></div>
-        <button class="btn-success" onclick="createAccount()">Salvar Conta</button>
-        <div class="divider">ou</div>
-        <button class="btn-outline" onclick="togglePane('login')">Voltar para Entrar</button>
       </div>
+      <div class="field"><label>Usuário</label><input id="newUser" placeholder="Escolha um usuário" /></div>
+      <div class="field"><label>E-mail</label><input id="newEmail" type="email" placeholder="seu@email.com" /></div>
+      <div class="field"><label>Senha</label><input id="newPass" type="password" placeholder="Escolha uma senha" /></div>
+      <button class="btn-success full" onclick="createAccount()">Salvar Conta</button>
+      <div class="divider">ou</div>
+      <button class="btn-outline full" onclick="togglePane('login')">Voltar para Entrar</button>
+    </div>
 
-      <!-- ---- P2.SEÇÃO 2: ESQUECI LOGIN/SENHA ---- -->
-      <div id="forgotPane" class="hidden">
-        <h2>Esqueci meu Login ou Senha</h2>
-        <p class="sub">Informe seu usuário ou e-mail cadastrado. Enviaremos um e-mail para o endereço cadastrado na conta.</p>
-        <div class="field"><label>Usuário ou E-mail</label><input id="forgotIdentifier" placeholder="Usuário ou e-mail cadastrado" /></div>
-        <button class="btn-blue" onclick="enviarEmailEsqueci()">Enviar e-mail</button>
-        <div id="forgotMsg"></div>
+<!-- ------ P2.SEÇÃO 3: ESQUECI LOGIN/SENHA (e-mail: ERRO 2667) ------ -->
+    <div id="forgotPane" class="hidden">
+      <h2>Esqueci meu Login ou Senha</h2>
+      <p class="sub">Informe seu usuário ou e-mail cadastrado.</p>
+      <div class="field"><label>Usuário ou E-mail</label><input id="forgotIdentifier" placeholder="Usuário ou e-mail cadastrado" /></div>
+      <button class="btn-blue full" onclick="erroEmail('forgotMsg')">Enviar e-mail</button>
+      <div id="forgotMsg"></div>
+      <div class="divider">ou</div>
+      <button class="btn-outline full" onclick="togglePane('login')">Voltar para Entrar</button>
+    </div>
 
-        <div id="forgotResetChoice" class="hidden" style="margin-top:16px;">
-          <div class="cfg-tabs">
-            <button type="button" class="cfg-tab active" id="forgotTabBtnLogin" onclick="showForgotTab('login')">Redefinir Login</button>
-            <button type="button" class="cfg-tab" id="forgotTabBtnSenha" onclick="showForgotTab('senha')">Redefinir Senha</button>
-          </div>
-          <div id="forgotPaneLogin" class="cfg-pane active">
-            <label>Novo Login</label>
-            <input id="forgotNovoLogin" placeholder="Escolha o novo usuário" />
-            <button class="btn-success" style="margin-top:10px;" onclick="enviarConfirmacao('login')">Enviar e-mail de confirmação</button>
-          </div>
-          <div id="forgotPaneSenha" class="cfg-pane">
-            <label>Nova Senha</label>
-            <input id="forgotNovaSenha" type="password" placeholder="Escolha a nova senha" />
-            <button class="btn-success" style="margin-top:10px;" onclick="enviarConfirmacao('password')">Enviar e-mail de confirmação</button>
-          </div>
-          <div id="forgotConfirmMsg"></div>
-        </div>
-
-        <div class="divider">ou</div>
-        <button class="btn-outline" onclick="togglePane('login')">Voltar para Entrar</button>
-      </div>
-
-      <!-- ----P2.SEÇÃO 3: ESQUECI E-MAIL ---- -->
-      <div id="forgotEmailPane" class="hidden">
-        <h2>Esqueci meu E-mail</h2>
-        <p class="sub">Confirme seu usuário e senha e informe o novo e-mail. Enviaremos a confirmação para esse novo endereço.</p>
-        <div class="field"><label>Usuário</label><input id="feUser" placeholder="Seu usuário" /></div>
-        <div class="field"><label>Senha</label><input id="fePass" type="password" placeholder="Sua senha" /></div>
-        <div class="field"><label>Novo e-mail</label><input id="feNovoEmail" type="email" placeholder="novo@email.com" /></div>
-        <button class="btn-blue" onclick="enviarConfirmacaoNovoEmail()">Enviar e-mail de confirmação</button>
-        <div id="feMsg"></div>
-        <div class="divider">ou</div>
-        <button class="btn-outline" onclick="togglePane('login')">Voltar para Entrar</button>
-      </div>
+<!-- ------ P2.SEÇÃO 4: ESQUECI E-MAIL (e-mail: ERRO 2667) ------ -->
+    <div id="forgotEmailPane" class="hidden">
+      <h2>Esqueci meu E-mail</h2>
+      <p class="sub">Confirme seu usuário e senha e informe o novo e-mail.</p>
+      <div class="field"><label>Usuário</label><input id="feUser" placeholder="Seu usuário" /></div>
+      <div class="field"><label>Senha</label><input id="fePass" type="password" placeholder="Sua senha" /></div>
+      <div class="field"><label>Novo e-mail</label><input id="feNovoEmail" type="email" placeholder="novo@email.com" /></div>
+      <button class="btn-blue full" onclick="erroEmail('feMsg')">Enviar e-mail de confirmação</button>
+      <div id="feMsg"></div>
+      <div class="divider">ou</div>
+      <button class="btn-outline full" onclick="togglePane('login')">Voltar para Entrar</button>
     </div>
   </div>
 </div>
 
-  <!-- =======================================
-<!-- PATAMAR 3: Estrutura Principal -->
-  <!-- =======================================
-  
-<!-- P3.SEÇÃO 1: ================= APP ================= -->
+<!-- ------ P2.SEÇÃO 5: MODAL ESQUECI O CÓDIGO DE ACESSO (centralizado) ------ -->
+<div id="forgotCodeModal" class="modal-overlay hidden">
+  <div class="modal small" style="text-align:center;">
+    <h3>Esqueci o código de acesso</h3>
+    <div style="text-align:left;">
+      <label>Coloque seu usuário</label>
+      <input id="fcUser" placeholder="Seu usuário ou email" />
+      <label style="margin-top:10px;display:block;">Coloque sua senha</label>
+      <input id="fcPass" type="password" placeholder="Sua senha" />
+    </div>
+    <div id="fcMsg"></div>
+    <div style="margin-top:20px;display:flex;flex-direction:column;align-items:center;gap:8px;">
+      <button class="btn-danger" onclick="gerarCodigoConta()">Gerar novo código para a conta</button>
+      <button class="btn-link" onclick="closeModal('forgotCodeModal')">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!--
+==============================
+PATAMAR 3: ESTRUTURA PRINCIPAL (APP)
+==============================
+-->
+
+<!-- ------ P3.SEÇÃO 1: RETÂNGULO LATERAL ------ -->
 <div id="app" class="hidden">
-  <div class="wrap">
+  <aside class="sidebar">
     <div class="greeting" id="greeting">-</div>
-    <div class="app-panel">
-      <header class="topbar">
-        <div class="whoami-col">
-          <div class="whoami">
-            <div class="avatar" id="avatarInitial">?</div>
-            <div class="meta">
-              <div class="nick" id="hdrNick">-</div>
-              <div class="role" id="hdrRole">-</div>
-            </div>
-          </div>
-          <button class="btn-config" onclick="openConfig()"><span class="gear">⚙️</span> Configurações</button>
-        </div>
-        <div class="header-actions">
-          <button class="btn-success" onclick="openRegistro()">Registro</button>
-          <button class="btn-danger" onclick="logout()">Encerrar sessão</button>
-        </div>
-      </header>
-
-      <div class="tabs">
-        <button id="tabBtnBanheiro" class="tab active" onclick="showTab('banheiro')">Banheiro</button>
-        <button id="tabBtnPresenca" class="tab" onclick="showTab('presenca')">Presença</button>
-        <button id="tabBtnGestao" class="tab hidden" onclick="showTab('gestao')">Gestão</button>
-      </div>
-
-      <!-- ---- P3.SEÇÃO 2: BANHEIRO ---- -->
-      <div id="tabBanheiro" class="tab-content">
-        <div class="card">
-          <div class="card-head">
-            <h3 style="margin:0;">Controle de Banheiro</h3>
-            <button class="btn-warning" onclick="openOcorrencia()">Registrar Ocorrência</button>
-          </div>
-          <div class="row2">
-            <div>
-              <label>Turma</label>
-              <select id="banheiroTurma" onchange="renderBanheiroAlunoSelect(); renderGestaoBanheiroExtra();"></select>
-            </div>
-            <div>
-              <label>Aluno</label>
-              <select id="banheiroAluno"></select>
-            </div>
-          </div>
-          <div class="btnbar" style="margin-top:14px;">
-            <button class="btn-blue" onclick="confirmarSaidaBanheiro()">Confirmar Saída</button>
-          </div>
-          <div id="banheiroMsg"></div>
-        </div>
-
-        <div class="card">
-          <h3>Lista de quem está fora</h3>
-          <div id="activeBathroomList"></div>
-        </div>
-
-        <div class="card hidden" id="gestaoBanheiroCard">
-          <h3>Histórico de hoje — <span id="gestaoBanheiroTurmaLabel"></span></h3>
-          <div id="gestaoBanheiroExtra"></div>
-        </div>
-      </div>
-
-      <!-- ----P3.SEÇÃO 3: PRESENÇA ---- -->
-      <div id="tabPresenca" class="tab-content hidden">
-        <div class="card">
-          <h3>Chamada</h3>
-          <label>Turma</label>
-          <select id="presencaTurma" onchange="renderPresencaList()"></select>
-          <div id="presencaMsg"></div>
-        </div>
-        <div class="card">
-          <h3>Lista de Alunos</h3>
-          <div id="presencaList"></div>
-        </div>
-      </div>
-
-      <!-- ----P3.SEÇÃO 4: GESTÃO (passe livre) ---- -->
-      <div id="tabGestao" class="tab-content hidden">
-        <div class="card">
-          <h3>Passe Livre</h3>
-          <label>Turma</label>
-          <select id="gestaoTurma" onchange="renderGestaoPasseList()"></select>
-        </div>
-        <div class="card">
-          <h3>Alunos</h3>
-          <div id="gestaoPasseList"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-  <!-- =======================================
-<!-- PATAMAR 4: MODALS
-  <!-- =======================================
-
-<!-- =================P4.SEÇÃO 1: REGISTRO MODAL ================= -->
-<div id="registroModal" class="modal-overlay hidden">
-  <div class="modal" style="max-width:900px;">
-    <div class="card-head">
-      <h3 style="margin:0;">Registro</h3>
-      <button class="btn-gray" onclick="closeModal('registroModal')">Fechar</button>
-    </div>
-    <div class="row2" style="margin-bottom:14px;">
+    <div class="whoami">
+      <div class="avatar" id="avatarBox">?</div>
       <div>
+        <div class="nick" id="hdrNick">-</div>
+        <div class="role" id="hdrRole">-</div>
+        <button class="btn-config" onclick="openConfig()">⚙️ Configurações</button>
+      </div>
+    </div>
+
+    <!-- P3.SEÇÃO 2: MENU PRINCIPAL -->
+    <div class="nav" id="mainMenu">
+      <button id="navBanheiro" class="nav-btn active" onclick="showView('Banheiro')">Banheiro</button>
+      <button id="navPresenca" class="nav-btn" onclick="showView('Presenca')">Presença</button>
+      <button id="navGestao" class="nav-btn hidden" onclick="showView('Gestao')">Gestão</button>
+      <button id="navRegistro" class="nav-btn" onclick="openRegistro()">Registro</button>
+      <button id="navOcorrencia" class="nav-btn" onclick="openOcorrencia()">Ocorrência</button>
+    </div>
+
+    <!-- P3.SEÇÃO 3: MENU DE CONFIGURAÇÕES -->
+    <div class="nav hidden" id="cfgMenu">
+      <button id="navCfgConta" class="nav-btn active" onclick="showView('CfgConta')">Configuração de Conta</button>
+      <button id="navCfgAparencia" class="nav-btn" onclick="showView('CfgAparencia')">Aparência</button>
+      <button class="nav-btn" onclick="closeConfig()">← Voltar</button>
+    </div>
+
+    <div class="side-bottom"><button class="btn-danger full" onclick="logout()">Encerrar sessão</button></div>
+  </aside>
+
+  <main class="main"><div class="panel">
+
+<!-- ------ P3.SEÇÃO 4: BANHEIRO ------ -->
+    <div id="viewBanheiro" class="view">
+      <div class="card">
+        <h3>Controle de Banheiro</h3>
+        <div class="row2">
+          <div><label>Turma</label><select id="banheiroTurma" onchange="renderBanheiroAlunoSelect(); renderGestaoBanheiroExtra();"></select></div>
+          <div><label>Aluno</label><select id="banheiroAluno"></select></div>
+        </div>
+        <div style="margin-top:14px;"><button class="btn-blue" onclick="confirmarSaidaBanheiro()">Confirmar Saída</button></div>
+        <div id="banheiroMsg"></div>
+      </div>
+      <div class="card"><h3>Lista de quem está fora</h3><div id="activeBathroomList"></div></div>
+      <div class="card hidden" id="gestaoBanheiroCard">
+        <h3>Histórico de hoje — <span id="gestaoBanheiroTurmaLabel"></span></h3>
+        <div id="gestaoBanheiroExtra"></div>
+      </div>
+    </div>
+
+<!-- ------ P3.SEÇÃO 5: PRESENÇA ------ -->
+    <div id="viewPresenca" class="view hidden">
+      <div class="card">
+        <h3>Chamada</h3>
         <label>Turma</label>
-        <select id="registroTurma" onchange="renderRegistro()">
-          <option value="">Selecione uma turma</option>
-        </select>
+        <select id="presencaTurma" onchange="renderPresencaList()"></select>
+        <div id="presencaMsg"></div>
       </div>
-      <div>
-        <label>Data</label>
-        <input type="date" id="registroData" onchange="renderRegistro()" />
-      </div>
-    </div>
-    <div id="registroConteudo">
-      <div class="empty">Selecione uma turma para ver o registro.</div>
-    </div>
-  </div>
-</div>
-
-<!-- =================P4.SEÇÃO 2: CONFIG MODAL ================= -->
-<div id="configModal" class="modal-overlay hidden">
-  <div class="modal">
-    <h3>Configurações</h3>
-    <div class="cfg-tabs">
-      <button class="cfg-tab active" id="cfgTabBtnPerfil" onclick="showCfgTab('perfil')">Perfil</button>
-      <button class="cfg-tab" id="cfgTabBtnAparencia" onclick="showCfgTab('aparencia')">Aparência</button>
+      <div class="card"><h3>Lista de Alunos</h3><div id="presencaList"></div></div>
     </div>
 
-    <div id="cfgPanePerfil" class="cfg-pane active">
-      <label>Novo apelido (nick)</label>
-      <input id="cfgNick" />
-      <label style="margin-top:10px;display:block;">Nova senha</label>
-      <input id="cfgPass" type="password" placeholder="Deixe em branco para manter a atual" />
-
-      <div style="margin-top:18px;border-top:1px solid var(--border);padding-top:16px;">
-        <label>Trocar e-mail cadastrado</label>
-        <input id="cfgNovoEmail" type="email" placeholder="novo@email.com" />
-        <button class="btn-blue" style="width:100%;margin-top:8px;" onclick="solicitarTrocaEmail()">Enviar e-mail de confirmação</button>
-        <div id="cfgEmailMsg"></div>
+<!-- ------ P3.SEÇÃO 6: GESTÃO (passe livre) ------ -->
+    <div id="viewGestao" class="view hidden">
+      <div class="card">
+        <h3>Passe Livre</h3>
+        <label>Turma</label>
+        <select id="gestaoTurma" onchange="renderGestaoPasseList()"></select>
       </div>
-
-      <div style="margin-top:18px;">
-        <p style="font-size:12px;color:var(--muted);margin-bottom:8px;">O código de acesso default é "2667NI".</p>
-        <button class="btn-danger" style="width:100%;" onclick="solicitarNovoCodigo()">Solicitar novo código de acesso</button>
-      </div>
-      <div class="modal-close-row">
-        <button class="btn-gray" onclick="closeModal('configModal')">Cancelar</button>
-        <button class="btn-success" onclick="saveConfigPerfil()">Salvar</button>
-      </div>
+      <div class="card"><h3>Alunos</h3><div id="gestaoPasseList"></div></div>
     </div>
 
-    <div id="cfgPaneAparencia" class="cfg-pane">
-      <label>Tema</label>
-      <div class="theme-choice">
-        <div class="theme-opt" id="themeOptLight" onclick="selectTheme('light')">
-          <div class="theme-swatch swatch-light"></div>
-          Claro
+<!-- ------ P3.SEÇÃO 7: REGISTRO ------ -->
+    <div id="viewRegistro" class="view hidden">
+      <div class="card">
+        <h3>Registro</h3>
+        <div class="row2" style="margin-bottom:14px;">
+          <div><label>Turma</label><select id="registroTurma" onchange="renderRegistro()"><option value="">Selecione uma turma</option></select></div>
+          <div><label>Data</label><input type="date" id="registroData" onchange="renderRegistro()" /></div>
         </div>
-        <div class="theme-opt" id="themeOptDark" onclick="selectTheme('dark')">
-          <div class="theme-swatch swatch-dark"></div>
-          Escuro
+        <div id="registroConteudo"><div class="empty">Selecione uma turma para ver o registro.</div></div>
+      </div>
+    </div>
+
+<!-- ------ P3.SEÇÃO 8: OCORRÊNCIA ------ -->
+    <div id="viewOcorrencia" class="view hidden">
+      <div class="card">
+        <h3>Registrar Ocorrência</h3>
+        <div class="row2">
+          <div><label>Data</label><input id="ocData" readonly /></div>
+          <div><label>Horário</label><input id="ocHora" readonly /></div>
+        </div>
+        <label style="margin-top:10px;display:block;">Turma</label><select id="ocTurma"></select>
+        <label style="margin-top:10px;display:block;">Nome do profissional</label><input id="ocProfissional" />
+        <label style="margin-top:10px;display:block;">Descrição objetiva</label><textarea id="ocDescricao" rows="3"></textarea>
+        <label style="margin-top:10px;display:block;">Contexto</label><textarea id="ocContexto" rows="3"></textarea>
+        <label style="margin-top:10px;display:block;">Encaminhamento e providências</label><textarea id="ocEncaminhamento" rows="3"></textarea>
+        <label style="margin-top:10px;display:block;">Ciência das partes</label><input id="ocCiencia" placeholder="Nomes de quem tomou ciência" />
+        <div class="modal-close-row"><button class="btn-warning" onclick="imprimirOcorrencia()">Imprimir</button></div>
+      </div>
+    </div>
+
+<!-- ------ P3.SEÇÃO 9: CONFIGURAÇÃO DE CONTA ------ -->
+    <div id="viewCfgConta" class="view hidden">
+      <div class="area">
+        <h2 class="area-title">Foto de perfil</h2>
+        <label>Escolha uma nova foto</label>
+        <input type="file" id="cfgFoto" accept="image/*" onchange="trocarFoto(event)" />
+        <div id="cfgFotoMsg"></div>
+      </div>
+      <div class="area">
+        <h2 class="area-title">Informações sobre a conta</h2>
+        <div class="edit-row"><label>Nome de usuário</label><input id="cfgUser" />
+          <button class="btn-blue full" onclick="salvarCampo('username')">Alterar nome de usuário</button></div>
+        <div class="edit-row"><label>Email</label><input id="cfgEmail" type="email" />
+          <button class="btn-blue full" onclick="salvarCampo('email')">Alterar email</button></div>
+        <div class="edit-row"><label>Senha da conta (para confirmar)</label><input id="cfgConf1" type="password" placeholder="Digite sua senha atual" /></div>
+        <div id="cfgInfoMsg"></div>
+      </div>
+      <div class="area" style="border-bottom:none;">
+        <h2 class="area-title">Segurança</h2>
+        <div class="edit-row"><label>Nova senha</label><input id="cfgNewPass" type="password" />
+          <button class="btn-blue full" onclick="salvarCampo('password')">Alterar senha</button></div>
+        <div class="edit-row"><label>Novo código de acesso (mínimo 4 números e 2 letras)</label><input id="cfgCode" placeholder="Exemplo: 1234AB" />
+          <button class="btn-blue full" onclick="salvarCampo('access_code')">Alterar código de acesso</button></div>
+        <div class="edit-row"><label>Senha da conta (para confirmar)</label><input id="cfgConf2" type="password" placeholder="Digite sua senha atual" /></div>
+        <div id="cfgSegMsg"></div>
+      </div>
+    </div>
+
+<!-- ------ P3.SEÇÃO 10: APARÊNCIA ------ -->
+    <div id="viewCfgAparencia" class="view hidden">
+      <div class="area">
+        <h2 class="area-title">Tema</h2>
+        <div class="theme-choice">
+          <div class="theme-opt" id="themeOptLight" onclick="selectTheme('light')"><div class="theme-swatch swatch-light"></div>Claro</div>
+          <div class="theme-opt" id="themeOptDark" onclick="selectTheme('dark')"><div class="theme-swatch swatch-dark"></div>Escuro</div>
         </div>
       </div>
-      <div class="modal-close-row">
-        <button class="btn-gray" onclick="closeModal('configModal')">Fechar</button>
+      <div class="area">
+        <h2 class="area-title">Tamanho da fonte</h2>
+        <input type="range" id="lookFs" min="12" max="20" step="1" oninput="setLook()" />
+        <div class="subtext" id="lookFsVal"></div>
+      </div>
+      <div class="area">
+        <h2 class="area-title">Zoom do site</h2>
+        <input type="range" id="lookZoom" min="80" max="130" step="5" oninput="setLook()" />
+        <div class="subtext" id="lookZoomVal"></div>
+      </div>
+      <div class="area" style="border-bottom:none;">
+        <h2 class="area-title">Contraste</h2>
+        <input type="range" id="lookBr" min="70" max="130" step="5" oninput="setLook()" />
+        <div class="subtext" id="lookBrVal"></div>
+        <button class="btn-gray" style="margin-top:12px;" onclick="resetLook()">Restaurar padrão</button>
       </div>
     </div>
-  </div>
+
+  </div></main>
 </div>
 
-<!-- =================P4.SEÇÃO 3: OCORRENCIA MODAL ================= -->
-<div id="ocorrenciaModal" class="modal-overlay hidden">
-  <div class="modal">
-    <h3>Registrar Ocorrência</h3>
-    <div class="row2">
-      <div><label>Data</label><input id="ocData" readonly /></div>
-      <div><label>Horário</label><input id="ocHora" readonly /></div>
-    </div>
-    <label style="margin-top:10px;display:block;">Turma</label>
-    <select id="ocTurma"></select>
-    <label style="margin-top:10px;display:block;">Nome do profissional</label>
-    <input id="ocProfissional" />
-    <label style="margin-top:10px;display:block;">Descrição objetiva</label>
-    <textarea id="ocDescricao" rows="3"></textarea>
-    <label style="margin-top:10px;display:block;">Contexto</label>
-    <textarea id="ocContexto" rows="3"></textarea>
-    <label style="margin-top:10px;display:block;">Encaminhamento e providências</label>
-    <textarea id="ocEncaminhamento" rows="3"></textarea>
-    <label style="margin-top:10px;display:block;">Ciência das partes</label>
-    <input id="ocCiencia" placeholder="Nomes de quem tomou ciência" />
-    <div class="modal-close-row">
-      <button class="btn-gray" onclick="closeModal('ocorrenciaModal')">Cancelar</button>
-      <button class="btn-warning" onclick="imprimirOcorrencia()">Imprimir</button>
-    </div>
-  </div>
-</div>
+<!--
+==============================
+PATAMAR 4: MODAIS
+==============================
+-->
 
-<!-- =================P4.SEÇÃO 4: SAIR MAIS CEDO MODAL (gestão) ================= -->
+<!-- ------ P4.SEÇÃO 1: SAIR MAIS CEDO (gestão) ------ -->
 <div id="saidaModal" class="modal-overlay hidden">
   <div class="modal small">
     <h3>Sair mais cedo</h3>
@@ -497,10 +443,7 @@
       <span style="font-weight:700;font-size:13px;">Aluno irá voltar?</span>
       <div style="display:flex;align-items:center;gap:8px;">
         <span id="saidaVoltaLabel" style="font-size:12px;color:var(--muted);">Não</span>
-        <label class="switch">
-          <input type="checkbox" id="saidaVoltaToggle" />
-          <span class="slider" onclick="toggleVoltaLabel()"></span>
-        </label>
+        <label class="switch"><input type="checkbox" id="saidaVoltaToggle" /><span class="slider" onclick="toggleVoltaLabel()"></span></label>
         <span style="font-size:12px;color:var(--muted);">Sim</span>
       </div>
     </div>
@@ -511,7 +454,7 @@
   </div>
 </div>
 
-<!-- =================P4.SEÇÃO 5: PASSE LIVRE MODAL ================= -->
+<!-- ------ P4.SEÇÃO 2: PASSE LIVRE ------ -->
 <div id="passeModal" class="modal-overlay hidden">
   <div class="modal small">
     <h3>Passe Livre</h3>
@@ -520,11 +463,8 @@
     <textarea id="passeJustificativa" rows="3" placeholder="Explique o motivo do passe livre"></textarea>
     <label style="margin-top:10px;display:block;">Até:</label>
     <select id="passeAte">
-      <option value="3d">Por 3 dias</option>
-      <option value="1s">Por uma semana</option>
-      <option value="2s">Por duas semanas</option>
-      <option value="1m">Por um mês</option>
-      <option value="sempre">Para sempre</option>
+      <option value="3d">Por 3 dias</option><option value="1s">Por uma semana</option><option value="2s">Por duas semanas</option>
+      <option value="1m">Por um mês</option><option value="sempre">Para sempre</option>
     </select>
     <div class="modal-close-row">
       <button class="btn-gray" onclick="closeModal('passeModal')">Cancelar</button>
@@ -533,7 +473,7 @@
   </div>
 </div>
 
-<!-- =================P4.SEÇÃO 6: AVISO DE SAÍDA REPETIDA MODAL ================= -->
+<!-- ------ P4.SEÇÃO 3: AVISO DE SAÍDA REPETIDA ------ -->
 <div id="avisoSaidaModal" class="modal-overlay hidden">
   <div class="modal small">
     <h3>Atenção</h3>
@@ -545,7 +485,7 @@
   </div>
 </div>
 
-<!-- Printable occurrence sheet -->
+<!-- ------ P4.SEÇÃO 4: FOLHA DE OCORRÊNCIA (impressão) ------ -->
 <div id="printArea">
   <h2>Folha de Ocorrência</h2>
   <div class="p-row"><span class="p-label">Data / Horário</span><div class="p-val" id="pv-datahora"></div></div>
@@ -557,25 +497,19 @@
   <div class="p-row"><span class="p-label">Ciência das partes</span><div class="p-val" id="pv-ciencia"></div></div>
 </div>
 
-<!-- EmailJS SDK (necessário para o envio de e-mails de autenticação) -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
 <script>
+/*
+==============================
+PATAMAR 5: SUPABASE E DADOS BASE
+==============================
+*/
 
- /* <!-- =======================================
-<!-- PATAMAR 5: SUPABASE 
-  <!-- =======================================
-  
-/* ==================================================================
-   SUPABASE — configuração e helpers REST
-   ================================================================== */
+/* ------ P5.SEÇÃO 1: CONFIGURAÇÃO E HELPERS REST ------ */
+/* Colunas novas necessárias na tabela "accounts": access_code (text) e avatar (text). */
 const SUPABASE_URL = "https://colfjdcotimawxlrwdok.supabase.co/rest/v1";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNvbGZqZGNvdGltYXd4bHJ3ZG9rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5OTk5MzQsImV4cCI6MjEwMjU3NTkzNH0.pQpgz2WujnUBrhkKCUjzRacHnzp8O92uYjx74F2ElwI";
-const sbHeaders = {
-  "apikey": SUPABASE_KEY,
-  "Authorization": "Bearer " + SUPABASE_KEY,
-  "Content-Type": "application/json"
-};
+const sbHeaders = { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY, "Content-Type": "application/json" };
+const $ = id => document.getElementById(id);
 
 async function sbGet(table, query){
   const res = await fetch(`${SUPABASE_URL}/${table}?${query||'select=*'}`, {headers: sbHeaders});
@@ -583,17 +517,13 @@ async function sbGet(table, query){
   return res.json();
 }
 async function sbInsert(table, rows){
-  const res = await fetch(`${SUPABASE_URL}/${table}`, {
-    method:'POST', headers:{...sbHeaders, Prefer:'return=representation'}, body: JSON.stringify(rows)
-  });
+  const res = await fetch(`${SUPABASE_URL}/${table}`, {method:'POST', headers:{...sbHeaders, Prefer:'return=representation'}, body: JSON.stringify(rows)});
   if(!res.ok) throw new Error(`${table}: ${await res.text()}`);
   return res.json();
 }
 async function sbUpdate(table, match, data){
   const qs = Object.entries(match).map(([k,v])=>`${k}=eq.${encodeURIComponent(v)}`).join('&');
-  const res = await fetch(`${SUPABASE_URL}/${table}?${qs}`, {
-    method:'PATCH', headers:{...sbHeaders, Prefer:'return=representation'}, body: JSON.stringify(data)
-  });
+  const res = await fetch(`${SUPABASE_URL}/${table}?${qs}`, {method:'PATCH', headers:{...sbHeaders, Prefer:'return=representation'}, body: JSON.stringify(data)});
   if(!res.ok) throw new Error(`${table}: ${await res.text()}`);
   return res.json();
 }
@@ -603,281 +533,125 @@ async function sbDelete(table, match){
   if(!res.ok) throw new Error(`${table}: ${await res.text()}`);
 }
 
-/* PARA MURILO!!!!! ==================================================================
-   CONFIGURAÇÃO DO EMAILJS — configuração e helper de envio
-   ------------------------------------------------------------------
-   1) Crie uma conta em https://www.emailjs.com/
-   2) Crie um "Email Service" (ex: Gmail) e copie o SERVICE ID
-   3) Crie um "Email Template" com as variáveis abaixo e copie o TEMPLATE ID:
-        {{to_email}}   -> destinatário
-        {{subject}}    -> assunto
-        {{message}}    -> texto da mensagem (já vem com a saudação)
-        {{action_url}} -> link do botão de confirmação (pode vir vazio)
-        {{action_label}} -> texto do botão (ex: "Confirmar")
-      No template, monte um botão verde em HTML usando {{action_url}}, por exemplo:
-        <a href="{{action_url}}" style="background:#16a34a;color:#fff;padding:12px 20px;
-           border-radius:8px;text-decoration:none;font-weight:bold;">{{action_label}}</a>
-   4) Em "Account" > "General", copie sua PUBLIC KEY
-   5) Cole as 3 chaves abaixo
-   ================================================================== */
-const EMAILJS_PUBLIC_KEY  = "COLE_SEU_PUBLIC_KEY_AQUI";
-const EMAILJS_SERVICE_ID  = "COLE_SEU_SERVICE_ID_AQUI";
-const EMAILJS_TEMPLATE_ID = "COLE_SEU_TEMPLATE_ID_AQUI";
-const APP_BASE_URL = window.location.origin + window.location.pathname;
-
-if(window.emailjs){ emailjs.init(EMAILJS_PUBLIC_KEY); }
-
-function emailGreetingWord(){
-  const h = new Date().getHours();
-  if(h < 12) return 'Bom dia';
-  if(h < 18) return 'Boa tarde';
-  return 'Boa noite';
-}
-function generateToken(){
-  return 'tok_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,10);
-}
-function buildConfirmUrl(token){
-  return APP_BASE_URL + '?confirm=' + token;
-}
-async function enviarEmailJS(toEmail, subject, message, actionUrl, actionLabel){
-  if(!EMAILJS_PUBLIC_KEY || EMAILJS_PUBLIC_KEY.startsWith('COLE_')){
-    throw new Error('EmailJS ainda não foi configurado (veja os comentários no código).');
-  }
-  return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-    to_email: toEmail,
-    subject: subject,
-    message: message,
-    action_url: actionUrl || '',
-    action_label: actionLabel || ''
-  });
-}
-
-/* ==================================================================
-   DADOS BASE
-   ================================================================== */
+/* ------ P5.SEÇÃO 2: DADOS BASE ------ */
 const DEFAULT_ACCESS_CODE = "2667NI";
-const RANDOM_CODES = ["4242GV","8964GP","6908PG","2606ME"];
+const EMAIL_ERR = "ERRO 2667 (INFINITE WIP)";
 const ROOMS = ["1A","1B","1C","1D","1E","2A","2B","2C","2D","2E","3A","3B","3C","3D","3E"];
 const MAX_OUT_PER_ROOM = 3;
 
-const ROOM_STUDENTS = {
-"1A":["Ana Silva","Bruno Costa","Carlos Eduardo","Daniela Santos","Eduardo Lima","Fernanda Oliveira","Gabriel Rodrigues","Heitor Souza","Isabela Martins","João Pedro","Kevin Rocha","Larissa Ferreira","Matheus Alves","Nicole Barbosa","Otávio Ribeiro","Patrícia Gomes","Quezia Ramos","Rafael Carvalho","Sabrina Melo","Tiago Mendes","Ueliton Cardoso","Vinícius Teixeira","Wesley Araújo","Xavier Nunes","Yuri Freitas","Zarina Lopes"],
-"1B":["Amanda Vieira","Breno Augusto","Camila Pires","Diego Fernando","Elaine Cristina","Felipe Augusto","Giovanna Liz","Hugo Henrique","Igor Matheus","Júlia Maria","Kauan Silva","Letícia Ramos","Murilo César","Natália Soares","Orlando Neto","Priscila Diniz","Queren Hapuque","Rodrigo Couto","Stefany Lima","Tânia Mara","Ubaldino Cruz","Vitor Hugo","Wagner Luiz","Xênia Maria","Yago Ramos","Zélia Regina"],
-"1C":["Alice Monteiro","Bryan Henrique","Clara Beatriz","Douglas Antunes","Emanuel Silva","Fabiana Costa","Guilherme Reis","Helena Vitória","Ícaro Rafael","Juliana Paes","Kaique Gabriel","Lucas Emanuel","Mariana Luíza","Nicolas Gabriel","Osvaldo Júnior","Paloma Regina","Quintino Neto","Ricardo Alex","Samuel Levi","Talles Augusto","Uanderson Luiz","Valentina Maria","Walace Bruno","Xian Lucas","Yasmin Gabrielly","Zeca Afonso"],
-"1D":["Arthur Antunes","Beatriz Rezende","Caio Vinícius","Davi Lucca","Esther Fagundes","Fabrício Dias","Gustavo Henrique","Heloísa Souza","Ingrid Maiara","Jonas Viana","Kátia Cilene","Leonardo Frota","Manuela Castro","Natan Albuquerque","Otávio Augusto","Pedro Henrique","Quéren Amélia","Renan Augusto","Sophia Beatriz","Thiago Ramos","Ubirajara Neto","Vanessa Cristina","Welinton Silva","Xande Cruz","Yslan Matheus","Zander Freitas"],
-"1E":["Agatha Morais","Benício Flores","Catarina Leitão","Danilo Passos","Eliane Rocha","Francisco Assis","Gisele Bündchen","Hudson Richard","Iara Silveira","Jorge Tadeu","Karina Mel","Luana Piovani","Miguel Arcanjo","Nathan Drake","Olívia Palito","Paula Toller","Quefren Siqueira","Raul Seixas","Simone Mendes","Tatiane Pinheiro","Uriel Arcanjo","Verônica Ferraz","Wanderson Cleiton","Ximena Ortiz","Yan Couto","Zilda Arns"],
-"2A":["Aline Guimarães","Benjamin Neto","Cecília Meireles","Danielly Faria","Enzo Gabriel","Francine Lopes","Gabriel Henrique","Heitor Augusto","Isadora Alvares","Joana Darck","Kelly Cristina","Leandro Leandro","Melissa Barcelos","Nayara Justino","Odemir Silveira","Patrique Silva","Quiteria Maria","Rebeca Andrade","Samuel Lucca","Thais Araújo","Ugo Viana","Vicente Sales","Washington Luis","Xisto Alencar","Yanka Silva","Zoraide Prado"],
-"2B":["Alana Borges","Bruno Henrique","Carolina Dieckmann","Diogo Nogueira","Eduarda Maria","Fernando Henrique","Gabriela Pugliesi","Henrique Juliano","Isaac Newton","Jeferson Silva","Kleber Lucas","Luan Santana","Maiara Carla","Naira Azevedo","Odilon Wagner","Pablo Vittar","Quinto Régio","Rodolffo Rios","Sorocaba Silva","Tierry de Souza","Ueslei Santos","Valéria Valenssa","Welson David","Xenofonte Lima","Yuri Alberto","Zenaide Silva"],
-"2C":["Augusto Cury","Bruna Marquezine","Caetano Veloso","Deborah Secco","Erasmo Carlos","Fátima Bernardes","Gal Costa","Herbert Vianna","Ivete Sangalo","Jô Soares","Kadu Moliterno","Lulu Santos","Marília Mendonça","Ney Matogrosso","Osmar Prado","Péricles Faria","Quasímodo Silva","Rita Lee","Seu Jorge","Tom Jobim","Ubaldina Melo","Lulu Santos (2)","Whindersson Nunes","Xuxa Meneghel","Yudi Tamashiro","Zeca Pagodinho"],
-"2D":["Ana clara","Babu Santana","Chay Suede","Dira Paes","Emílio Dantas","Fiuk Azevedo","Guilherme Luiz","Humberto Carrão","Ísis Valverde","Juliano Cazarré","Kyra Gracie","Lázaro Ramos","Murilo Dantas","Nanda Costa","Otávio Müller","Pedro Pires","Quelinha Santos","Rafael Cardoso","Sthefany Brito","Taís Araújo","Vladmir Brichta","Wladimir Costa","Xande de Pilares","Yana Sardenberg","Zezé Polessa"],
-"2E":["Adriana Esteves","Murilo Benício","Cláudia Abreu","Dalton Vigh","Eliane Giardini","Fábio Assunção","Giovanna Antonelli","Henri Castelli","Isabel Teixeira","José Loreto","Karine Teles","Leandra Leal","Malu Mader","Neuza Borges","Oscar Magrini","Patrícia Pillar","Quidute Alves","Reynaldo Gianecchini","Susana Vieira","Tony Ramos","Urban Souza","Vera Fischer","Walter Breda","Xênia França","Yvone Hoffmann","Zezé Motta"],
-"3A":["Alanis Guillen","Bella Campos","Camila Queiroz","Diego Martins","Erico Brás","Flávia Alessandra","Guito Show","Hugo Bonemer","Isabela Garcia","Johnny Massaro","Kizi Vaz","Luisa Arraes","Michel Gomes","Nicolas Prattes","Olivia Torres","Pedro Novaes","Quintina Vale","Rainer Cadete","Sheron Menezzes","Theresa Fonseca","Ubiratã Filho","Valentina Herszage","Welder Rodrigues","Xando Rodrigues","Yara Charry","Zezé di Camargo"],
-"3B":["Arlete Salles","Ary Fontoura","Cássia Kis","Daniel Filho","Eva Wilma","Francisco Cuoco","Gloria Pires","Herson Capri","Irene Ravache","Juca de Oliveira","Kadu Leite","Lima Duarte","Mauro Mendonça","Nicette Bruno","Othon Bastos","Paulo Goulart","Queila Maria","Reginaldo Faria","Susana Faini","Tarcísio Meira","Ubyara Ramos","Vera Holtz","Walderez de Barros","Xisto Neto","Yoná Magalhães","Zilka Salaberry"],
-"3C":["Alinne Moraes","Bárbara Paz","Carmo Dalla Vecchia","Dan Stulbach","Edson Celulari","Fernanda Vasconcellos","Gabriel Braga Nunes","Helena Ranaldi","Iran Malfitano","Júlia Lemmertz","Karen Marinho","Letícia Spiller","Marcello Antony","Natália do Vale","Otto Júnior","Priscila Fantin","Querubim Alencar","Rodrigo Santoro","Samara Felippo","Thiago Lacerda","Ubirandi Santos","Vivianne Pasmanter","Werner Schünemann","Xiomara Cruz","Yara Lins","Zilá Maria"],
-"3D":["Alexandre Nero","Bruna Linzmeyer","Caio Blat","Drica Moraes","Eduardo Moscovis","Flávia Monteiro","Gabriel Leone","Hermila Guedes","Irandhir Santos","Jesuíta Barbosa","Karine Carvalho","Leona Cavalli","Matheus Nachtergaele","Nívea Maria","Osmar Prado (2)","Patrícia França","Quirino Gomes","Roberto Bomtempo","Simone Spoladore","Tuca Andrada","Uigor Silva","Virginia Cavendish","Waldemar Rocha","Xande Valois","Yana Lavigne","Zeni Pereira"],
-"3E":["Armando Babaioff","Bianca Bin","Carol Castro","Danton Mello","Emílio Orciollo","Fabula Nascimento","Guilherme Weber","Heloísa Périssé","Isabela Santoni","Jayme Matarazzo","Kéfera Buchmann","Lucy Alves","Marco Pigossi","Nathalia Dill","Otávio Augusto (2)","Paloma Bernardi","Queise Mara","Rômulo Estrela","Sophie Charlotte","Tatá Werneck","Uriel Rocha","Vanessa Giácomo","Wendell Bendelack","Xica da Silva","Yanna Lavigne","Zezé Barbosa"]
-};
+/* >>> COLE AQUI o bloco original "const ROOM_STUDENTS = {...};" (lista de alunos) substituindo as 2 linhas abaixo <<< */
+const ROOM_STUDENTS = {};
+ROOMS.forEach(r => ROOM_STUDENTS[r] = []);
 function studentId(room, name){ return room + '__' + ROOM_STUDENTS[room].indexOf(name); }
 
-/* ==================================================================
-   ESTADO
-   ================================================================== */
-let currentUser = null;      // {id, username, password, role, nick, email}
-let currentAccessCode = DEFAULT_ACCESS_CODE;
-let activeBathroom = [];     // rows from bathroom_active
-let bathroomLogs = [];       // rows from bathroom_logs
-let attendance = [];         // rows from attendance
-let saidas = [];              // rows from saida_antecipada
-let freePasses = [];         // rows from free_passes
-let pendingSaidaTarget = null;  // {room, name}
-let pendingPasseTarget = null;  // {room, name}
-let pendingBanheiroSaida = null; // {room, name} - aguardando confirmação de saída repetida
-let forgotAccount = null;    // conta identificada no fluxo "Esqueci meu Login ou Senha"
+/* ------ P5.SEÇÃO 3: ESTADO ------ */
+let currentUser = null;
+let activeBathroom = [], bathroomLogs = [], attendance = [], saidas = [], freePasses = [];
+let pendingSaidaTarget = null, pendingPasseTarget = null, pendingBanheiroSaida = null;
+const roles = { login:'normal', new:'normal' };
 
-/* ==================================================================
-   LOGIN / CRIAÇÃO DE CONTA / RECUPERAÇÃO
-   ================================================================== */
+/*
+==============================
+PATAMAR 6: LOGIN E CONTA
+==============================
+*/
+
+/* ------ P6.SEÇÃO 1: NAVEGAÇÃO ENTRE PAINÉIS E TIPO DE CONTA ------ */
 function togglePane(which){
   const panes = { login:'loginPane', create:'createPane', forgot:'forgotPane', forgotEmail:'forgotEmailPane' };
-  Object.entries(panes).forEach(([key,id])=>{
-    document.getElementById(id).classList.toggle('hidden', key !== which);
-  });
+  Object.entries(panes).forEach(([key,id]) => $(id).classList.toggle('hidden', key !== which));
+}
+function pickRole(scope, role){
+  roles[scope] = role;
+  document.querySelectorAll(`.role-opt[data-scope="${scope}"]`).forEach(b => b.classList.toggle('selected', b.dataset.role === role));
+}
+function erroEmail(boxId){ $(boxId).innerHTML = `<div class="notice warn">${EMAIL_ERR}</div>`; }
+function closeModal(id){ $(id).classList.add('hidden'); }
+
+/* ------ P6.SEÇÃO 2: CÓDIGOS DE ACESSO ------ */
+const rnd = (s,n) => Array.from({length:n}, () => s[Math.floor(Math.random()*s.length)]).join('');
+function genCode(){ return rnd('0123456789',4) + rnd('ABCDEFGHJKLMNPQRSTUVWXYZ',2); }
+function validCode(c){ return (c.match(/\d/g)||[]).length >= 4 && (c.match(/[a-z]/gi)||[]).length >= 2; }
+
+/* ------ P6.SEÇÃO 3: BUSCA DE CONTA (usuário ou e-mail) ------ */
+async function findAccount(idf, pass){
+  const v = encodeURIComponent(idf.toLowerCase());
+  const byUser = await sbGet('accounts', `username=eq.${v}`);
+  const byMail = await sbGet('accounts', `email=eq.${v}`);
+  return [...byUser, ...byMail].find(a => a.password === pass) || null;
 }
 
+/* ------ P6.SEÇÃO 4: CRIAR CONTA ------ */
 async function createAccount(){
-  const role = document.getElementById('newRole').value;
-  const user = document.getElementById('newUser').value.trim();
-  const email = document.getElementById('newEmail').value.trim();
-  const pass = document.getElementById('newPass').value;
+  const user = $('newUser').value.trim(), email = $('newEmail').value.trim(), pass = $('newPass').value;
   if(!user || !pass || !email) return alert("Preencha todos os campos.");
   try{
     const existing = await sbGet('accounts', `username=eq.${encodeURIComponent(user.toLowerCase())}`);
     if(existing.length) return alert("Este usuário já existe.");
-    await sbInsert('accounts', [{username:user.toLowerCase(), password:pass, role, nick:user, email:email.toLowerCase()}]);
+    await sbInsert('accounts', [{username:user.toLowerCase(), password:pass, role:roles.new, nick:user, email:email.toLowerCase()}]);
     alert("Conta criada com sucesso! Você já pode entrar.");
     togglePane('login');
-  }catch(e){
-    alert("Erro ao criar conta: " + e.message);
-  }
+  }catch(e){ alert("Erro ao criar conta: " + e.message); }
 }
 
+/* ------ P6.SEÇÃO 5: ENTRAR ------ */
 async function login(){
-  const user = document.getElementById('loginUser').value.trim();
-  const pass = document.getElementById('loginPass').value;
-  const code = document.getElementById('loginCode').value.trim();
-  if(!user || !pass || !code) return alert("Preencha todos os campos.");
+  const idf = $('loginUser').value.trim(), pass = $('loginPass').value, code = $('loginCode').value.trim();
+  if(!idf || !pass || !code) return alert("Preencha todos os campos.");
   try{
-    const cfgRows = await sbGet('config', 'select=access_code&id=eq.1');
-    currentAccessCode = cfgRows.length ? cfgRows[0].access_code : DEFAULT_ACCESS_CODE;
-    if(code.toUpperCase() !== currentAccessCode.toUpperCase()) return alert("Código de acesso incorreto.");
-    const accs = await sbGet('accounts', `username=eq.${encodeURIComponent(user.toLowerCase())}`);
-    const account = accs.find(a => a.password === pass);
-    if(!account) return alert("Usuário ou senha incorretos.");
-    currentUser = account;
+    const acc = await findAccount(idf, pass);
+    if(!acc) return alert("Usuário/e-mail ou senha incorretos.");
+    if(acc.role !== roles.login) return alert("Tipo de conta incorreto. Selecione Professor ou Gestão corretamente.");
+    if(code.toUpperCase() !== (acc.access_code || DEFAULT_ACCESS_CODE).toUpperCase()) return alert("Código de acesso incorreto.");
+    currentUser = acc;
     playLoginAnimation();
     await initAppData();
-  }catch(e){
-    alert("Erro de conexão com o servidor: " + e.message);
-  }
+  }catch(e){ alert("Erro de conexão com o servidor: " + e.message); }
 }
-
-/* ---- Esqueci meu Login ou Senha ---- */
-async function enviarEmailEsqueci(){
-  const idf = document.getElementById('forgotIdentifier').value.trim();
-  if(!idf) return alert('Informe seu usuário ou e-mail.');
-  const msgBox = document.getElementById('forgotMsg');
-  try{
-    let accs = await sbGet('accounts', `username=eq.${encodeURIComponent(idf.toLowerCase())}`);
-    if(!accs.length) accs = await sbGet('accounts', `email=eq.${encodeURIComponent(idf.toLowerCase())}`);
-    if(!accs.length){ msgBox.innerHTML = '<div class="notice warn">Nenhuma conta encontrada.</div>'; return; }
-    forgotAccount = accs[0];
-    if(!forgotAccount.email){
-      msgBox.innerHTML = '<div class="notice warn">Esta conta não possui e-mail cadastrado. Use "Esqueci meu e-mail" primeiro.</div>';
-      return;
-    }
-    const greeting = emailGreetingWord();
-    const msg = `${greeting}, ${forgotAccount.nick}! Prossiga para abaixo para redefinir seu login e senha.`;
-    await enviarEmailJS(forgotAccount.email, 'Recuperação de acesso', msg, '', '');
-    msgBox.innerHTML = '<div class="notice ok">E-mail enviado! Escolha abaixo o que deseja redefinir.</div>';
-    document.getElementById('forgotResetChoice').classList.remove('hidden');
-  }catch(e){
-    msgBox.innerHTML = `<div class="notice warn">Erro: ${e.message}</div>`;
-  }
-}
-
-function showForgotTab(tab){
-  document.getElementById('forgotPaneLogin').classList.toggle('active', tab==='login');
-  document.getElementById('forgotPaneSenha').classList.toggle('active', tab==='senha');
-  document.getElementById('forgotTabBtnLogin').classList.toggle('active', tab==='login');
-  document.getElementById('forgotTabBtnSenha').classList.toggle('active', tab==='senha');
-}
-
-async function enviarConfirmacao(type){
-  if(!forgotAccount) return;
-  const confirmMsg = document.getElementById('forgotConfirmMsg');
-  let newValue;
-  if(type === 'login'){
-    newValue = document.getElementById('forgotNovoLogin').value.trim().toLowerCase();
-    if(!newValue) return alert('Escolha um novo login.');
-  } else {
-    newValue = document.getElementById('forgotNovaSenha').value;
-    if(!newValue) return alert('Escolha uma nova senha.');
-  }
-  try{
-    const token = generateToken();
-    await sbInsert('pending_changes', [{
-      account_id: forgotAccount.id, type, new_value: newValue, token,
-      confirmed: false, expires_at: new Date(Date.now()+30*60000).toISOString()
-    }]);
-    const greeting = emailGreetingWord();
-    const label = type === 'login' ? 'login' : 'senha';
-    const msg = `${greeting}, ${forgotAccount.nick}! Clique no botão abaixo para confirmar a redefinição da sua ${label}.`;
-    await enviarEmailJS(forgotAccount.email, 'Confirme a redefinição', msg, buildConfirmUrl(token), 'Confirmar');
-    confirmMsg.innerHTML = '<div class="notice ok">E-mail de confirmação enviado! Abra-o e clique no botão para concluir.</div>';
-  }catch(e){
-    confirmMsg.innerHTML = `<div class="notice warn">Erro: ${e.message}</div>`;
-  }
-}
-
-/* ---- Esqueci meu e-mail ---- */
-async function enviarConfirmacaoNovoEmail(){
-  const user = document.getElementById('feUser').value.trim().toLowerCase();
-  const pass = document.getElementById('fePass').value;
-  const novoEmail = document.getElementById('feNovoEmail').value.trim();
-  const msgBox = document.getElementById('feMsg');
-  if(!user || !pass || !novoEmail) return alert('Preencha todos os campos.');
-  try{
-    const accs = await sbGet('accounts', `username=eq.${encodeURIComponent(user)}`);
-    const acc = accs.find(a => a.password === pass);
-    if(!acc){ msgBox.innerHTML = '<div class="notice warn">Usuário ou senha incorretos.</div>'; return; }
-    const token = generateToken();
-    await sbInsert('pending_changes', [{
-      account_id: acc.id, type:'email', new_value: novoEmail.toLowerCase(), token,
-      confirmed:false, expires_at: new Date(Date.now()+30*60000).toISOString()
-    }]);
-    const greeting = emailGreetingWord();
-    const msg = `${greeting}, ${acc.nick}! Clique no botão abaixo para confirmar seu novo e-mail cadastrado.`;
-    await enviarEmailJS(novoEmail, 'Confirme seu novo e-mail', msg, buildConfirmUrl(token), 'Confirmar');
-    msgBox.innerHTML = '<div class="notice ok">E-mail de confirmação enviado para o novo endereço!</div>';
-  }catch(e){
-    msgBox.innerHTML = `<div class="notice warn">Erro: ${e.message}</div>`;
-  }
-}
-
-/* ---- Confirmação vinda do link do e-mail (?confirm=TOKEN) ---- */
-async function checkPendingConfirmation(){
-  const params = new URLSearchParams(window.location.search);
-  const token = params.get('confirm');
-  if(!token) return;
-  try{
-    const rows = await sbGet('pending_changes', `token=eq.${encodeURIComponent(token)}`);
-    if(!rows.length){ alert('Link inválido ou expirado.'); return; }
-    const pc = rows[0];
-    if(pc.confirmed){ alert('Este link já foi utilizado.'); return; }
-    if(new Date(pc.expires_at) < new Date()){ alert('Este link expirou. Solicite novamente.'); return; }
-    const data = {};
-    if(pc.type === 'login') data.username = pc.new_value;
-    if(pc.type === 'password') data.password = pc.new_value;
-    if(pc.type === 'email') data.email = pc.new_value;
-    await sbUpdate('accounts', {id: pc.account_id}, data);
-    await sbUpdate('pending_changes', {id: pc.id}, {confirmed:true});
-    alert('Alteração confirmada com sucesso! Você já pode entrar com os novos dados.');
-    window.history.replaceState({}, document.title, window.location.pathname);
-  }catch(e){
-    alert('Erro ao confirmar: ' + e.message);
-  }
-}
-
 function playLoginAnimation(){
-  const card = document.getElementById('loginCard');
-  card.classList.add('leaving');
+  $('loginCard').classList.add('leaving');
   setTimeout(()=>{
-    document.getElementById('loginScreen').classList.add('hidden');
-    const app = document.getElementById('app');
-    app.classList.remove('hidden');
-    app.classList.add('entering');
+    $('loginScreen').classList.add('hidden');
+    const app = $('app');
+    app.classList.remove('hidden'); app.classList.add('entering');
     setTimeout(()=>app.classList.remove('entering'), 700);
   }, 550);
 }
-
 function logout(){ location.reload(); }
 
-/* ==================================================================
-   INICIALIZAÇÃO DO APP
-   ================================================================== */
+/* ------ P6.SEÇÃO 6: ESQUECI O CÓDIGO DE ACESSO ------ */
+function openForgotCode(){
+  $('fcUser').value = ''; $('fcPass').value = ''; $('fcMsg').innerHTML = '';
+  $('forgotCodeModal').classList.remove('hidden');
+}
+async function gerarCodigoConta(){
+  const idf = $('fcUser').value.trim(), pass = $('fcPass').value;
+  if(!idf || !pass) return alert("Preencha usuário e senha.");
+  try{
+    const acc = await findAccount(idf, pass);
+    if(!acc){ $('fcMsg').innerHTML = '<div class="notice warn">Usuário ou senha incorretos.</div>'; return; }
+    const novo = genCode();
+    await sbUpdate('accounts', {id: acc.id}, {access_code: novo});
+    $('fcMsg').innerHTML = `<div class="notice ok">Novo código de acesso da conta: <b>${novo}</b></div>`;
+  }catch(e){ $('fcMsg').innerHTML = `<div class="notice warn">Erro: ${e.message}</div>`; }
+}
+
+/*
+==============================
+PATAMAR 7: APLICATIVO (INTERFACE E FUNÇÕES)
+==============================
+*/
+
+/* ------ P7.SEÇÃO 1: INICIALIZAÇÃO ------ */
 async function initAppData(){
-  loadTheme();
+  loadTheme(); loadLook();
   renderHeader();
   populateRoomSelects();
   await refreshAllData();
-  renderBanheiroAlunoSelect();
-  renderActiveOut();
-  renderGestaoBanheiroExtra();
-  renderPresencaList();
-  showTab('banheiro');
+  renderBanheiroAlunoSelect(); renderActiveOut(); renderGestaoBanheiroExtra(); renderPresencaList();
+  showView('Banheiro');
   startTicker();
 }
-
 async function refreshAllData(){
   try{
     const today = todayISO();
@@ -889,130 +663,41 @@ async function refreshAllData(){
       sbGet('free_passes', 'select=*&active=eq.true')
     ]);
     activeBathroom = act; bathroomLogs = logs; attendance = att; saidas = sai; freePasses = passes;
-  }catch(e){
-    console.error(e);
-  }
+  }catch(e){ console.error(e); }
 }
 
+/* ------ P7.SEÇÃO 2: SAUDAÇÃO E CABEÇALHO LATERAL ------ */
 function greetingWord(){
   const h = new Date().getHours();
-  if(h < 12) return 'Bom dia';
-  if(h < 19) return 'Boa tarde';
-  return 'Boa noite';
+  return h < 12 ? 'Bom dia' : (h < 19 ? 'Boa tarde' : 'Boa noite');
 }
-function updateGreeting(){
-  if(!currentUser) return;
-  document.getElementById('greeting').textContent = `${greetingWord()}, ${currentUser.nick}`;
-}
+function updateGreeting(){ if(currentUser) $('greeting').textContent = `${greetingWord()}, ${currentUser.nick}`; }
 setInterval(updateGreeting, 60000);
-
 function renderHeader(){
   updateGreeting();
-  document.getElementById('avatarInitial').textContent = currentUser.nick.charAt(0).toUpperCase();
-  document.getElementById('hdrNick').textContent = currentUser.nick;
-  document.getElementById('hdrRole').textContent = currentUser.role === 'gestao' ? 'Gestão' : 'Professor';
-  document.getElementById('tabBtnGestao').classList.toggle('hidden', currentUser.role !== 'gestao');
+  const av = $('avatarBox');
+  if(currentUser.avatar){ av.style.backgroundImage = `url(${currentUser.avatar})`; av.textContent = ''; }
+  else { av.style.backgroundImage = ''; av.textContent = currentUser.nick.charAt(0).toUpperCase(); }
+  $('hdrNick').textContent = currentUser.nick;
+  $('hdrRole').textContent = currentUser.role === 'gestao' ? 'Gestão' : 'Professor';
+  $('navGestao').classList.toggle('hidden', currentUser.role !== 'gestao');
 }
 
-/* ==================================================================
-   CONFIGURAÇÃO — PERFIL / APARÊNCIA / E-MAIL
-   ================================================================== */
-function openConfig(){
-  document.getElementById('cfgNick').value = currentUser.nick;
-  document.getElementById('cfgPass').value = '';
-  document.getElementById('cfgNovoEmail').value = '';
-  document.getElementById('cfgEmailMsg').innerHTML = '';
-  showCfgTab('perfil');
-  const savedTheme = localStorage.getItem('app_theme') || 'light';
-  selectTheme(savedTheme, false);
-  document.getElementById('configModal').classList.remove('hidden');
+/* ------ P7.SEÇÃO 3: TROCA DE TELAS ------ */
+function showView(name){
+  document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  $('view' + name).classList.remove('hidden');
+  const nb = $('nav' + name); if(nb) nb.classList.add('active');
+  if(name === 'Gestao') renderGestaoPasseList();
 }
-function showCfgTab(tab){
-  document.getElementById('cfgPanePerfil').classList.toggle('active', tab==='perfil');
-  document.getElementById('cfgPaneAparencia').classList.toggle('active', tab==='aparencia');
-  document.getElementById('cfgTabBtnPerfil').classList.toggle('active', tab==='perfil');
-  document.getElementById('cfgTabBtnAparencia').classList.toggle('active', tab==='aparencia');
-}
-async function saveConfigPerfil(){
-  const newNick = document.getElementById('cfgNick').value.trim();
-  const newPass = document.getElementById('cfgPass').value;
-  if(!newNick) return alert("O apelido não pode ficar vazio.");
-  try{
-    const data = { nick: newNick };
-    if(newPass) data.password = newPass;
-    await sbUpdate('accounts', {id: currentUser.id}, data);
-    currentUser.nick = newNick;
-    if(newPass) currentUser.password = newPass;
-    renderHeader();
-    closeModal('configModal');
-  }catch(e){
-    alert("Erro ao salvar: " + e.message);
-  }
-}
-async function solicitarTrocaEmail(){
-  const novoEmail = document.getElementById('cfgNovoEmail').value.trim();
-  const msgBox = document.getElementById('cfgEmailMsg');
-  if(!novoEmail) return alert('Informe o novo e-mail.');
-  try{
-    const token = generateToken();
-    await sbInsert('pending_changes', [{
-      account_id: currentUser.id, type:'email', new_value: novoEmail.toLowerCase(), token,
-      confirmed:false, expires_at: new Date(Date.now()+30*60000).toISOString()
-    }]);
-    const greeting = emailGreetingWord();
-    const msg = `${greeting}, ${currentUser.nick}! Clique no botão abaixo para confirmar seu novo e-mail.`;
-    await enviarEmailJS(novoEmail, 'Confirme seu novo e-mail', msg, buildConfirmUrl(token), 'Confirmar');
-    msgBox.innerHTML = '<div class="notice ok">E-mail de confirmação enviado!</div>';
-  }catch(e){
-    msgBox.innerHTML = `<div class="notice warn">Erro: ${e.message}</div>`;
-  }
-}
-async function solicitarNovoCodigo(){
-  if(!confirm("Isso vai gerar um novo código de acesso para toda a escola. Continuar?")) return;
-  const novo = RANDOM_CODES[Math.floor(Math.random()*RANDOM_CODES.length)];
-  try{
-    await sbUpdate('config', {id:1}, {access_code: novo});
-    currentAccessCode = novo;
-    alert("Novo código de acesso gerado: " + novo);
-  }catch(e){
-    alert("Erro ao gerar novo código: " + e.message);
-  }
-}
-function closeModal(id){ document.getElementById(id).classList.add('hidden'); }
-
-function selectTheme(theme, persist=true){
-  document.getElementById('themeOptLight').classList.toggle('selected', theme==='light');
-  document.getElementById('themeOptDark').classList.toggle('selected', theme==='dark');
-  document.body.classList.toggle('dark-theme', theme==='dark');
-  if(persist) localStorage.setItem('app_theme', theme);
-}
-function loadTheme(){
-  const theme = localStorage.getItem('app_theme') || 'light';
-  document.body.classList.toggle('dark-theme', theme==='dark');
-}
-
-/* ==================================================================
-   TABS
-   ================================================================== */
-function showTab(tab){
-  document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.remove('hidden');
-  document.getElementById('tabBtn' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
-  if(tab === 'gestao') renderGestaoPasseList();
-}
-
 function populateRoomSelects(){
-  const selects = ['banheiroTurma','presencaTurma','ocTurma','gestaoTurma'];
-  selects.forEach(id=>{
-    const sel = document.getElementById(id);
-    sel.innerHTML = ROOMS.map(r=>`<option value="${r}">${r}</option>`).join('');
+  ['banheiroTurma','presencaTurma','ocTurma','gestaoTurma'].forEach(id => {
+    $(id).innerHTML = ROOMS.map(r => `<option value="${r}">${r}</option>`).join('');
   });
-  const regSel = document.getElementById('registroTurma');
-  regSel.innerHTML = '<option value="">Selecione uma turma</option>' + ROOMS.map(r=>`<option value="${r}">${r}</option>`).join('');
-  document.getElementById('registroData').value = todayISO();
+  $('registroTurma').innerHTML = '<option value="">Selecione uma turma</option>' + ROOMS.map(r => `<option value="${r}">${r}</option>`).join('');
+  $('registroData').value = todayISO();
 }
-
 function todayISO(){
   const d = new Date();
   return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
@@ -1026,12 +711,9 @@ function nowHM(){
   return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
 }
 
-/* ==================================================================
-   PASSE LIVRE — utilitários
-   ================================================================== */
+/* ------ P7.SEÇÃO 4: PASSE LIVRE (utilitários) ------ */
 function findActivePass(room, name){
-  const sid = studentId(room, name);
-  const today = new Date(todayISO());
+  const sid = studentId(room, name), today = new Date(todayISO());
   return freePasses.find(p => p.student_id === sid && p.active && (!p.until_date || new Date(p.until_date) >= today));
 }
 function passTooltip(pass){
@@ -1039,99 +721,68 @@ function passTooltip(pass){
   return `Motivo: ${pass.reason}\nVálido ${ate}`;
 }
 
-/* ==================================================================
-   BANHEIRO
-   ================================================================== */
+/* ------ P7.SEÇÃO 5: BANHEIRO ------ */
 function renderBanheiroAlunoSelect(){
-  const room = document.getElementById('banheiroTurma').value;
-  const activeNames = activeBathroom.filter(e=>e.room===room).map(e=>e.name);
-  const sel = document.getElementById('banheiroAluno');
-  sel.innerHTML = (ROOM_STUDENTS[room]||[])
-    .filter(s => !activeNames.includes(s))
-    .map(s => `<option value="${s}">${s}</option>`).join('');
+  const room = $('banheiroTurma').value;
+  const activeNames = activeBathroom.filter(e => e.room === room).map(e => e.name);
+  $('banheiroAluno').innerHTML = (ROOM_STUDENTS[room]||[]).filter(s => !activeNames.includes(s)).map(s => `<option value="${s}">${s}</option>`).join('');
 }
-
 async function confirmarSaidaBanheiro(){
-  const room = document.getElementById('banheiroTurma').value;
-  const name = document.getElementById('banheiroAluno').value;
+  const room = $('banheiroTurma').value, name = $('banheiroAluno').value;
   if(!name) return;
-
-  const sid = studentId(room, name);
-  const timesOutToday = bathroomLogs.filter(l => l.student_id === sid).length;
+  const timesOutToday = bathroomLogs.filter(l => l.student_id === studentId(room, name)).length;
   if(timesOutToday >= 1){
     pendingBanheiroSaida = {room, name};
-    document.getElementById('avisoSaidaTexto').textContent =
-      `${name} já saiu hoje. Vezes que saiu: ${timesOutToday}. Deseja prosseguir? Verifique o "Registro" para mais informações.`;
-    document.getElementById('avisoSaidaModal').classList.remove('hidden');
+    $('avisoSaidaTexto').textContent = `${name} já saiu hoje. Vezes que saiu: ${timesOutToday}. Deseja prosseguir? Verifique o "Registro" para mais informações.`;
+    $('avisoSaidaModal').classList.remove('hidden');
     return;
   }
-
   await executarSaidaBanheiro(room, name);
 }
-
-function cancelarAvisoSaida(){
-  pendingBanheiroSaida = null;
-  closeModal('avisoSaidaModal');
-}
-
+function cancelarAvisoSaida(){ pendingBanheiroSaida = null; closeModal('avisoSaidaModal'); }
 async function confirmarSaidaBanheiroForcado(){
   if(!pendingBanheiroSaida) return;
   const { room, name } = pendingBanheiroSaida;
-  pendingBanheiroSaida = null;
-  closeModal('avisoSaidaModal');
+  pendingBanheiroSaida = null; closeModal('avisoSaidaModal');
   await executarSaidaBanheiro(room, name);
 }
-
 async function executarSaidaBanheiro(room, name){
-  const countRoom = activeBathroom.filter(e=>e.room===room).length;
-  if(countRoom >= MAX_OUT_PER_ROOM){
-    document.getElementById('banheiroMsg').innerHTML = `<div class="notice warn">Limite atingido: já existem ${MAX_OUT_PER_ROOM} alunos fora da turma ${room}.</div>`;
+  if(activeBathroom.filter(e => e.room === room).length >= MAX_OUT_PER_ROOM){
+    $('banheiroMsg').innerHTML = `<div class="notice warn">Limite atingido: já existem ${MAX_OUT_PER_ROOM} alunos fora da turma ${room}.</div>`;
     return;
   }
   try{
     const row = { student_id: studentId(room,name), name, room, exit_timestamp: Date.now(), exit_time: nowHM(), date: todayISO() };
     const [inserted] = await sbInsert('bathroom_active', [row]);
     activeBathroom.push(inserted);
-    document.getElementById('banheiroMsg').innerHTML = `<div class="notice ok">${name} liberado(a) para o banheiro.</div>`;
-    renderBanheiroAlunoSelect();
-    renderActiveOut();
-  }catch(e){
-    alert("Erro ao registrar saída: " + e.message);
-  }
+    $('banheiroMsg').innerHTML = `<div class="notice ok">${name} liberado(a) para o banheiro.</div>`;
+    renderBanheiroAlunoSelect(); renderActiveOut();
+  }catch(e){ alert("Erro ao registrar saída: " + e.message); }
 }
-
 async function registrarRetorno(activeId){
-  const entry = activeBathroom.find(e => e.id === activeId);
+  const entry = activeBathroom.find(e => String(e.id) === String(activeId));
   if(!entry) return;
   if(!confirm(`Confirmar retorno de ${entry.name}?`)) return;
   const durationMin = Math.round((Date.now() - Number(entry.exit_timestamp))/60000);
-  let status = 'normal';
-  if(durationMin >= 10) status = 'red';
-  else if(durationMin >= 5) status = 'yellow';
+  const status = durationMin >= 10 ? 'red' : (durationMin >= 5 ? 'yellow' : 'normal');
   try{
     const logRow = { student_id: entry.student_id, name: entry.name, room: entry.room, exit_time: entry.exit_time, return_time: nowHM(), date: entry.date, duration_min: durationMin, status };
     const [inserted] = await sbInsert('bathroom_logs', [logRow]);
     bathroomLogs.push(inserted);
     await sbDelete('bathroom_active', {id: entry.id});
     activeBathroom = activeBathroom.filter(e => e.id !== entry.id);
-    renderBanheiroAlunoSelect();
-    renderActiveOut();
-    renderGestaoBanheiroExtra();
-  }catch(e){
-    alert("Erro ao registrar retorno: " + e.message);
-  }
+    renderBanheiroAlunoSelect(); renderActiveOut(); renderGestaoBanheiroExtra();
+  }catch(e){ alert("Erro ao registrar retorno: " + e.message); }
 }
-
 function renderActiveOut(){
-  const container = document.getElementById('activeBathroomList');
   let html = '';
-  ROOMS.forEach(room=>{
-    const list = activeBathroom.filter(e=>e.room===room);
-    if(list.length === 0) return;
+  ROOMS.forEach(room => {
+    const list = activeBathroom.filter(e => e.room === room);
+    if(!list.length) return;
     html += `<div style="margin-bottom:10px;"><div class="subtext" style="margin-bottom:6px;">Turma ${room}</div>`;
-    list.forEach(entry=>{
+    list.forEach(entry => {
       const minutesOut = Math.floor((Date.now() - Number(entry.exit_timestamp))/60000);
-      let cls = 'status-normal', badge='badge-normal', warnMsg='';
+      let cls = 'status-normal', badge = 'badge-normal', warnMsg = '';
       if(minutesOut >= 10){ cls='status-red'; badge='badge-red'; warnMsg='Mais de dez minutos fora'; }
       else if(minutesOut >= 5){ cls='status-yellow'; badge='badge-yellow'; warnMsg='Mais de cinco minutos fora'; }
       const pass = findActivePass(room, entry.name);
@@ -1139,141 +790,106 @@ function renderActiveOut(){
         ? `<span class="status-pass has-tip" data-tip="${passTooltip(pass).replace(/"/g,'&quot;')}" style="font-weight:700;">${entry.name}</span>`
         : `<span class="${cls}" style="font-weight:700;">${entry.name}</span>`;
       html += `<div class="list-item">
-        <div class="info">
-          ${nameHtml}
-          <span class="subtext">Saiu às ${entry.exit_time}${warnMsg ? ' • '+warnMsg : ''}</span>
-        </div>
+        <div class="info">${nameHtml}<span class="subtext">Saiu às ${entry.exit_time}${warnMsg ? ' • '+warnMsg : ''}</span></div>
         <div style="display:flex;align-items:center;gap:8px;">
           <span class="badge ${badge}">${minutesOut} min</span>
           <button class="btn-danger" onclick="registrarRetorno('${entry.id}')">Registrar retorno</button>
-        </div>
-      </div>`;
+        </div></div>`;
     });
     html += `</div>`;
   });
-  container.innerHTML = html || `<div class="empty">Nenhum aluno fora no momento.</div>`;
+  $('activeBathroomList').innerHTML = html || `<div class="empty">Nenhum aluno fora no momento.</div>`;
 }
-
 function renderGestaoBanheiroExtra(){
-  const card = document.getElementById('gestaoBanheiroCard');
+  const card = $('gestaoBanheiroCard');
   if(!currentUser || currentUser.role !== 'gestao'){ card.classList.add('hidden'); return; }
   card.classList.remove('hidden');
-  const room = document.getElementById('banheiroTurma').value;
-  document.getElementById('gestaoBanheiroTurmaLabel').textContent = room;
-  const activeRoom = activeBathroom.filter(e=>e.room===room);
-  const logsRoom = bathroomLogs.filter(l=>l.room===room).sort((a,b)=> (b.exit_time||'').localeCompare(a.exit_time||''));
-  let html = '';
-  html += `<div class="subtext" style="margin-bottom:6px;">Ainda fora (${activeRoom.length})</div>`;
-  html += activeRoom.length
-    ? activeRoom.map(e=>`<div class="list-item"><span>${e.name}</span><span class="badge badge-yellow">Saiu ${e.exit_time}</span></div>`).join('')
-    : `<div class="empty">Nenhum aluno fora.</div>`;
+  const room = $('banheiroTurma').value;
+  $('gestaoBanheiroTurmaLabel').textContent = room;
+  const activeRoom = activeBathroom.filter(e => e.room === room);
+  const logsRoom = bathroomLogs.filter(l => l.room === room).sort((a,b) => (b.exit_time||'').localeCompare(a.exit_time||''));
+  let html = `<div class="subtext" style="margin-bottom:6px;">Ainda fora (${activeRoom.length})</div>`;
+  html += activeRoom.length ? activeRoom.map(e => `<div class="list-item"><span>${e.name}</span><span class="badge badge-yellow">Saiu ${e.exit_time}</span></div>`).join('') : `<div class="empty">Nenhum aluno fora.</div>`;
   html += `<div class="subtext" style="margin:14px 0 6px;">Já retornaram hoje</div>`;
-  html += logsRoom.length
-    ? logsRoom.map(l=>`<div class="list-item"><span>${l.name}</span><span class="badge badge-normal">${l.exit_time} → ${l.return_time}</span></div>`).join('')
-    : `<div class="empty">Nenhum retorno registrado.</div>`;
-  document.getElementById('gestaoBanheiroExtra').innerHTML = html;
+  html += logsRoom.length ? logsRoom.map(l => `<div class="list-item"><span>${l.name}</span><span class="badge badge-normal">${l.exit_time} → ${l.return_time}</span></div>`).join('') : `<div class="empty">Nenhum retorno registrado.</div>`;
+  $('gestaoBanheiroExtra').innerHTML = html;
 }
-
 function startTicker(){
-  setInterval(async ()=>{
-    if(!document.getElementById('tabBanheiro').classList.contains('hidden')){
-      await refreshAllData();
-      renderActiveOut();
-      renderGestaoBanheiroExtra();
+  setInterval(async () => {
+    if(!$('viewBanheiro').classList.contains('hidden')){
+      await refreshAllData(); renderActiveOut(); renderGestaoBanheiroExtra();
     }
   }, 20000);
 }
 
-/* ==================================================================
-   PRESENÇA
-   ================================================================== */
+/* ------ P7.SEÇÃO 6: PRESENÇA ------ */
 function renderPresencaList(){
-  const room = document.getElementById('presencaTurma').value;
-  const list = document.getElementById('presencaList');
-  const isGestao = currentUser.role === 'gestao';
-  list.innerHTML = (ROOM_STUDENTS[room]||[]).map(s => `
+  const room = $('presencaTurma').value, isGestao = currentUser.role === 'gestao';
+  $('presencaList').innerHTML = (ROOM_STUDENTS[room]||[]).map(s => `
     <div class="list-item">
       <strong>${s}</strong>
-      <div class="btnbar" style="display:flex;gap:8px;">
+      <div style="display:flex;gap:8px;">
         <button class="btn-blue" onclick="marcarChegada('${s.replace(/'/g,"\\'")}','${room}')">Chegada</button>
         ${isGestao ? `<button class="btn-danger" onclick="abrirSaidaAntecipada('${s.replace(/'/g,"\\'")}','${room}')">Sair mais cedo</button>` : ''}
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
-
 async function marcarChegada(name, room){
   const timeStr = nowHM();
   let tipo = 'chegada', msg = '';
-  if(timeStr <= '07:10'){ tipo='chegada'; msg = 'Chegada no horário normal'; }
-  else if(timeStr < '07:50'){ tipo='chegada'; msg = 'Chegada com atraso leve'; }
-  else { tipo='segunda'; msg = 'Chegada registrada na segunda aula'; }
+  if(timeStr <= '07:10'){ msg = 'Chegada no horário normal'; }
+  else if(timeStr < '07:50'){ msg = 'Chegada com atraso leve'; }
+  else { tipo = 'segunda'; msg = 'Chegada registrada na segunda aula'; }
   try{
     const row = {student_id: studentId(room,name), name, room, time: timeStr, date: todayISO(), tipo};
     const [inserted] = await sbInsert('attendance', [row]);
     attendance.push(inserted);
-    document.getElementById('presencaMsg').innerHTML = `<div class="notice info">${name}: ${msg}</div>`;
-  }catch(e){
-    alert("Erro ao registrar chegada: " + e.message);
-  }
+    $('presencaMsg').innerHTML = `<div class="notice info">${name}: ${msg}</div>`;
+  }catch(e){ alert("Erro ao registrar chegada: " + e.message); }
 }
-
 function abrirSaidaAntecipada(name, room){
   pendingSaidaTarget = {name, room};
-  document.getElementById('saidaAlunoLabel').textContent = `${name} — Turma ${room}`;
-  document.getElementById('saidaMotivo').value = '';
-  document.getElementById('saidaVoltaToggle').checked = false;
-  document.getElementById('saidaVoltaLabel').textContent = 'Não';
-  document.getElementById('saidaModal').classList.remove('hidden');
+  $('saidaAlunoLabel').textContent = `${name} — Turma ${room}`;
+  $('saidaMotivo').value = '';
+  $('saidaVoltaToggle').checked = false;
+  $('saidaVoltaLabel').textContent = 'Não';
+  $('saidaModal').classList.remove('hidden');
 }
 function toggleVoltaLabel(){
-  setTimeout(()=>{
-    const checked = document.getElementById('saidaVoltaToggle').checked;
-    document.getElementById('saidaVoltaLabel').textContent = checked ? 'Sim' : 'Não';
-  }, 0);
+  setTimeout(() => { $('saidaVoltaLabel').textContent = $('saidaVoltaToggle').checked ? 'Sim' : 'Não'; }, 0);
 }
 async function confirmarSaidaAntecipada(){
   if(!pendingSaidaTarget) return;
-  const motivo = document.getElementById('saidaMotivo').value.trim();
+  const motivo = $('saidaMotivo').value.trim();
   if(!motivo) return alert("Descreva o motivo da saída.");
-  const willReturn = document.getElementById('saidaVoltaToggle').checked;
   try{
     const row = {
       student_id: studentId(pendingSaidaTarget.room, pendingSaidaTarget.name),
       name: pendingSaidaTarget.name, room: pendingSaidaTarget.room,
-      reason: motivo, will_return: willReturn, date: todayISO(), time: nowHM()
+      reason: motivo, will_return: $('saidaVoltaToggle').checked, date: todayISO(), time: nowHM()
     };
     const [inserted] = await sbInsert('saida_antecipada', [row]);
     saidas.push(inserted);
-    document.getElementById('presencaMsg').innerHTML = `<div class="notice ok">Saída antecipada de ${pendingSaidaTarget.name} registrada.</div>`;
-    closeModal('saidaModal');
-    pendingSaidaTarget = null;
-  }catch(e){
-    alert("Erro ao registrar saída antecipada: " + e.message);
-  }
+    $('presencaMsg').innerHTML = `<div class="notice ok">Saída antecipada de ${pendingSaidaTarget.name} registrada.</div>`;
+    closeModal('saidaModal'); pendingSaidaTarget = null;
+  }catch(e){ alert("Erro ao registrar saída antecipada: " + e.message); }
 }
 
-/* ==================================================================
-   GESTÃO — PASSE LIVRE
-   ================================================================== */
+/* ------ P7.SEÇÃO 7: GESTÃO (passe livre) ------ */
 function renderGestaoPasseList(){
-  const room = document.getElementById('gestaoTurma').value;
-  const list = document.getElementById('gestaoPasseList');
-  list.innerHTML = (ROOM_STUDENTS[room]||[]).map(s=>{
+  const room = $('gestaoTurma').value;
+  $('gestaoPasseList').innerHTML = (ROOM_STUDENTS[room]||[]).map(s => {
     const pass = findActivePass(room, s);
     const tag = pass ? `<span class="badge badge-blue has-tip" data-tip="${passTooltip(pass).replace(/"/g,'&quot;')}">Passe ativo</span>` : '';
-    return `<div class="list-item">
-      <span>${s} ${tag}</span>
-      <button class="btn-blue" onclick="abrirPasseLivre('${s.replace(/'/g,"\\'")}','${room}')">Passe Livre</button>
-    </div>`;
+    return `<div class="list-item"><span>${s} ${tag}</span>
+      <button class="btn-blue" onclick="abrirPasseLivre('${s.replace(/'/g,"\\'")}','${room}')">Passe Livre</button></div>`;
   }).join('');
 }
 function abrirPasseLivre(name, room){
   pendingPasseTarget = {name, room};
-  document.getElementById('passeAlunoLabel').textContent = `${name} — Turma ${room}`;
-  document.getElementById('passeJustificativa').value = '';
-  document.getElementById('passeAte').value = '3d';
-  document.getElementById('passeModal').classList.remove('hidden');
+  $('passeAlunoLabel').textContent = `${name} — Turma ${room}`;
+  $('passeJustificativa').value = ''; $('passeAte').value = '3d';
+  $('passeModal').classList.remove('hidden');
 }
 function untilDateFor(code){
   if(code === 'sempre') return null;
@@ -1289,9 +905,9 @@ function untilLabelFor(code){
 }
 async function confirmarPasseLivre(){
   if(!pendingPasseTarget) return;
-  const just = document.getElementById('passeJustificativa').value.trim();
+  const just = $('passeJustificativa').value.trim();
   if(!just) return alert("Escreva a justificativa do passe livre.");
-  const ateCode = document.getElementById('passeAte').value;
+  const ateCode = $('passeAte').value;
   try{
     const row = {
       student_id: studentId(pendingPasseTarget.room, pendingPasseTarget.name),
@@ -1300,27 +916,15 @@ async function confirmarPasseLivre(){
     };
     const [inserted] = await sbInsert('free_passes', [row]);
     freePasses.push(inserted);
-    renderGestaoPasseList();
-    renderActiveOut();
-    closeModal('passeModal');
-    pendingPasseTarget = null;
-  }catch(e){
-    alert("Erro ao conceder passe livre: " + e.message);
-  }
+    renderGestaoPasseList(); renderActiveOut();
+    closeModal('passeModal'); pendingPasseTarget = null;
+  }catch(e){ alert("Erro ao conceder passe livre: " + e.message); }
 }
 
-/* ==================================================================
-   REGISTRO (compartilhado entre dispositivos via Supabase)
-   ================================================================== */
-function openRegistro(){
-  document.getElementById('registroModal').classList.remove('hidden');
-  renderRegistro();
-}
-
+/* ------ P7.SEÇÃO 8: REGISTRO ------ */
+function openRegistro(){ showView('Registro'); renderRegistro(); }
 async function renderRegistro(){
-  const room = document.getElementById('registroTurma').value;
-  const date = document.getElementById('registroData').value;
-  const container = document.getElementById('registroConteudo');
+  const room = $('registroTurma').value, date = $('registroData').value, container = $('registroConteudo');
   if(!room){ container.innerHTML = `<div class="empty">Selecione uma turma para ver o registro.</div>`; return; }
   container.innerHTML = `<div class="empty">Carregando...</div>`;
   try{
@@ -1344,50 +948,139 @@ async function renderRegistro(){
           <div>${logs.length ? logs.map(l => {
             const cls = l.status === 'red' ? 'status-red' : (l.status === 'yellow' ? 'status-yellow' : 'status-normal');
             const badge = l.status === 'red' ? 'badge-red' : (l.status === 'yellow' ? 'badge-yellow' : 'badge-normal');
-            return `<div class="list-item">
-              <div class="info">
-                <span class="${cls}" style="font-weight:700;">${l.name}</span>
-                <span class="subtext">Saída ${l.exit_time} • Retorno ${l.return_time}</span>
-              </div>
-              <span class="badge ${badge}">${l.duration_min} min</span>
-            </div>`;
+            return `<div class="list-item"><div class="info"><span class="${cls}" style="font-weight:700;">${l.name}</span>
+              <span class="subtext">Saída ${l.exit_time} • Retorno ${l.return_time}</span></div><span class="badge ${badge}">${l.duration_min} min</span></div>`;
           }).join('') : `<div class="empty">Nenhum registro de banheiro.</div>`}</div>
         </div>
       </div>`;
-  }catch(e){
-    container.innerHTML = `<div class="notice warn">Erro ao carregar registro: ${e.message}</div>`;
-  }
+  }catch(e){ container.innerHTML = `<div class="notice warn">Erro ao carregar registro: ${e.message}</div>`; }
 }
 
-/* ==================================================================
-   OCORRÊNCIA
-   ================================================================== */
+/* ------ P7.SEÇÃO 9: OCORRÊNCIA ------ */
 function openOcorrencia(){
-  document.getElementById('ocData').value = todayBR();
-  document.getElementById('ocHora').value = nowHM();
-  document.getElementById('ocTurma').value = document.getElementById('banheiroTurma').value;
-  document.getElementById('ocProfissional').value = currentUser.nick;
-  document.getElementById('ocDescricao').value = '';
-  document.getElementById('ocContexto').value = '';
-  document.getElementById('ocEncaminhamento').value = '';
-  document.getElementById('ocCiencia').value = '';
-  document.getElementById('ocorrenciaModal').classList.remove('hidden');
+  $('ocData').value = todayBR(); $('ocHora').value = nowHM();
+  $('ocTurma').value = $('banheiroTurma').value;
+  $('ocProfissional').value = currentUser.nick;
+  ['ocDescricao','ocContexto','ocEncaminhamento','ocCiencia'].forEach(id => $(id).value = '');
+  showView('Ocorrencia');
 }
-
 function imprimirOcorrencia(){
-  document.getElementById('pv-datahora').textContent = document.getElementById('ocData').value + ' às ' + document.getElementById('ocHora').value;
-  document.getElementById('pv-turma').textContent = document.getElementById('ocTurma').value;
-  document.getElementById('pv-prof').textContent = document.getElementById('ocProfissional').value;
-  document.getElementById('pv-desc').textContent = document.getElementById('ocDescricao').value;
-  document.getElementById('pv-ctx').textContent = document.getElementById('ocContexto').value;
-  document.getElementById('pv-enc').textContent = document.getElementById('ocEncaminhamento').value;
-  document.getElementById('pv-ciencia').textContent = document.getElementById('ocCiencia').value;
+  $('pv-datahora').textContent = $('ocData').value + ' às ' + $('ocHora').value;
+  $('pv-turma').textContent = $('ocTurma').value;
+  $('pv-prof').textContent = $('ocProfissional').value;
+  $('pv-desc').textContent = $('ocDescricao').value;
+  $('pv-ctx').textContent = $('ocContexto').value;
+  $('pv-enc').textContent = $('ocEncaminhamento').value;
+  $('pv-ciencia').textContent = $('ocCiencia').value;
   window.print();
 }
 
-/* Aplica tema salvo e verifica links de confirmação assim que a página carrega (antes do login) */
+/*
+==============================
+PATAMAR 8: CONFIGURAÇÕES
+==============================
+*/
+
+/* ------ P8.SEÇÃO 1: ABRIR E FECHAR (o retângulo troca de menu) ------ */
+function openConfig(){
+  $('mainMenu').classList.add('hidden'); $('cfgMenu').classList.remove('hidden');
+  $('cfgUser').value = currentUser.username; $('cfgEmail').value = currentUser.email || '';
+  ['cfgConf1','cfgConf2','cfgNewPass','cfgCode'].forEach(id => $(id).value = '');
+  ['cfgInfoMsg','cfgSegMsg','cfgFotoMsg'].forEach(id => $(id).innerHTML = '');
+  syncLookInputs();
+  selectTheme(localStorage.getItem('app_theme') || 'light', false);
+  showView('CfgConta');
+}
+function closeConfig(){
+  $('cfgMenu').classList.add('hidden'); $('mainMenu').classList.remove('hidden');
+  showView('Banheiro');
+}
+
+/* ------ P8.SEÇÃO 2: CONFIGURAÇÃO DE CONTA (senha obrigatória, exceto foto) ------ */
+async function trocarFoto(ev){
+  const file = ev.target.files[0];
+  if(!file) return;
+  const img = new Image();
+  img.onload = async () => {
+    const c = document.createElement('canvas'), s = 160;
+    c.width = c.height = s;
+    const m = Math.min(img.width, img.height);
+    c.getContext('2d').drawImage(img, (img.width-m)/2, (img.height-m)/2, m, m, 0, 0, s, s);
+    const data = c.toDataURL('image/jpeg', 0.8);
+    try{
+      await sbUpdate('accounts', {id: currentUser.id}, {avatar: data});
+      currentUser.avatar = data; renderHeader();
+      $('cfgFotoMsg').innerHTML = '<div class="notice ok">Foto de perfil atualizada!</div>';
+    }catch(e){ $('cfgFotoMsg').innerHTML = `<div class="notice warn">Erro: ${e.message}</div>`; }
+  };
+  img.src = URL.createObjectURL(file);
+}
+async function salvarCampo(field){
+  const map = { username:['cfgUser','cfgConf1','cfgInfoMsg'], email:['cfgEmail','cfgConf1','cfgInfoMsg'], password:['cfgNewPass','cfgConf2','cfgSegMsg'], access_code:['cfgCode','cfgConf2','cfgSegMsg'] };
+  const [inp, conf, msg] = map[field];
+  const raw = $(inp).value, v = field === 'password' ? raw : raw.trim();
+  if(!v) return alert("Preencha o campo que deseja alterar.");
+  if($(conf).value !== currentUser.password) return alert("Senha da conta incorreta.");
+  const data = {};
+  try{
+    if(field === 'username'){
+      const ex = await sbGet('accounts', `username=eq.${encodeURIComponent(v.toLowerCase())}`);
+      if(ex.length && String(ex[0].id) !== String(currentUser.id)) return alert("Este usuário já existe.");
+      data.username = v.toLowerCase(); data.nick = v;
+    } else if(field === 'email'){
+      if(!v.includes('@')) return alert("Informe um e-mail válido.");
+      data.email = v.toLowerCase();
+    } else if(field === 'access_code'){
+      if(!validCode(v)) return alert("O código de acesso precisa ter no mínimo 4 números e 2 letras.");
+      data.access_code = v.toUpperCase();
+    } else data.password = v;
+    await sbUpdate('accounts', {id: currentUser.id}, data);
+    Object.assign(currentUser, data);
+    renderHeader();
+    $(msg).innerHTML = '<div class="notice ok">Alteração salva com sucesso!</div>';
+    $(inp).value = ''; $(conf).value = '';
+    if(field === 'username') $('cfgUser').value = currentUser.username;
+    if(field === 'email') $('cfgEmail').value = currentUser.email;
+  }catch(e){ $(msg).innerHTML = `<div class="notice warn">Erro: ${e.message}</div>`; }
+}
+
+/* ------ P8.SEÇÃO 3: APARÊNCIA (tema, fonte, zoom, contraste) ------ */
+function selectTheme(theme, persist=true){
+  $('themeOptLight').classList.toggle('selected', theme === 'light');
+  $('themeOptDark').classList.toggle('selected', theme === 'dark');
+  document.body.classList.toggle('dark-theme', theme === 'dark');
+  if(persist) localStorage.setItem('app_theme', theme);
+}
+function loadTheme(){
+  document.body.classList.toggle('dark-theme', (localStorage.getItem('app_theme') || 'light') === 'dark');
+}
+function getLook(){
+  try{ return Object.assign({fs:15, zoom:100, br:100}, JSON.parse(localStorage.getItem('app_look') || '{}')); }
+  catch(e){ return {fs:15, zoom:100, br:100}; }
+}
+function applyLook(l){
+  document.documentElement.style.setProperty('--fs', l.fs + 'px');
+  document.documentElement.style.setProperty('--br', l.br / 100);
+  document.body.style.zoom = l.zoom / 100;
+}
+function syncLookInputs(){
+  const l = getLook();
+  $('lookFs').value = l.fs; $('lookZoom').value = l.zoom; $('lookBr').value = l.br;
+  $('lookFsVal').textContent = l.fs + ' px';
+  $('lookZoomVal').textContent = l.zoom + '%';
+  $('lookBrVal').textContent = l.br < 100 ? `Mais escuro (${l.br}%)` : (l.br > 100 ? `Mais claro (${l.br}%)` : 'Padrão (100%)');
+}
+function setLook(){
+  const l = { fs: Number($('lookFs').value), zoom: Number($('lookZoom').value), br: Number($('lookBr').value) };
+  localStorage.setItem('app_look', JSON.stringify(l));
+  applyLook(l); syncLookInputs();
+}
+function resetLook(){ localStorage.removeItem('app_look'); applyLook(getLook()); syncLookInputs(); }
+function loadLook(){ applyLook(getLook()); }
+
+/* ------ P8.SEÇÃO 4: INICIALIZAÇÃO DA PÁGINA ------ */
 loadTheme();
-checkPendingConfirmation();
+loadLook();
 </script>
 </body>
 </html>
