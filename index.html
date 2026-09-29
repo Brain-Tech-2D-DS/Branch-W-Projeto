@@ -349,7 +349,7 @@
         </div>
       </div>
 
-      <!-- ---- PRESENÇA ---- -->
+      <!-- ----P3.SEÇÃO 3: PRESENÇA ---- -->
       <div id="tabPresenca" class="tab-content hidden">
         <div class="card">
           <h3>Chamada</h3>
@@ -363,7 +363,7 @@
         </div>
       </div>
 
-      <!-- ---- GESTÃO (passe livre) ---- -->
+      <!-- ----P3.SEÇÃO 4: GESTÃO (passe livre) ---- -->
       <div id="tabGestao" class="tab-content hidden">
         <div class="card">
           <h3>Passe Livre</h3>
@@ -379,7 +379,11 @@
   </div>
 </div>
 
-<!-- ================= REGISTRO MODAL ================= -->
+  <!-- =======================================
+<!-- PATAMAR 4: MODALS
+  <!-- =======================================
+
+<!-- =================P4.SEÇÃO 1: REGISTRO MODAL ================= -->
 <div id="registroModal" class="modal-overlay hidden">
   <div class="modal" style="max-width:900px;">
     <div class="card-head">
@@ -404,7 +408,7 @@
   </div>
 </div>
 
-<!-- ================= CONFIG MODAL ================= -->
+<!-- =================P4.SEÇÃO 2: CONFIG MODAL ================= -->
 <div id="configModal" class="modal-overlay hidden">
   <div class="modal">
     <h3>Configurações</h3>
@@ -455,7 +459,7 @@
   </div>
 </div>
 
-<!-- ================= OCORRENCIA MODAL ================= -->
+<!-- =================P4.SEÇÃO 3: OCORRENCIA MODAL ================= -->
 <div id="ocorrenciaModal" class="modal-overlay hidden">
   <div class="modal">
     <h3>Registrar Ocorrência</h3>
@@ -482,7 +486,7 @@
   </div>
 </div>
 
-<!-- ================= SAIR MAIS CEDO MODAL (gestão) ================= -->
+<!-- =================P4.SEÇÃO 4: SAIR MAIS CEDO MODAL (gestão) ================= -->
 <div id="saidaModal" class="modal-overlay hidden">
   <div class="modal small">
     <h3>Sair mais cedo</h3>
@@ -507,7 +511,7 @@
   </div>
 </div>
 
-<!-- ================= PASSE LIVRE MODAL ================= -->
+<!-- =================P4.SEÇÃO 5: PASSE LIVRE MODAL ================= -->
 <div id="passeModal" class="modal-overlay hidden">
   <div class="modal small">
     <h3>Passe Livre</h3>
@@ -529,7 +533,7 @@
   </div>
 </div>
 
-<!-- ================= AVISO DE SAÍDA REPETIDA MODAL ================= -->
+<!-- =================P4.SEÇÃO 6: AVISO DE SAÍDA REPETIDA MODAL ================= -->
 <div id="avisoSaidaModal" class="modal-overlay hidden">
   <div class="modal small">
     <h3>Atenção</h3>
@@ -557,6 +561,11 @@
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <script>
+
+ /* <!-- =======================================
+<!-- PATAMAR 5: SUPABASE 
+  <!-- =======================================
+  
 /* ==================================================================
    SUPABASE — configuração e helpers REST
    ================================================================== */
@@ -594,7 +603,7 @@ async function sbDelete(table, match){
   if(!res.ok) throw new Error(`${table}: ${await res.text()}`);
 }
 
-/* ==================================================================
+/* PARA MURILO!!!!! ==================================================================
    CONFIGURAÇÃO DO EMAILJS — configuração e helper de envio
    ------------------------------------------------------------------
    1) Crie uma conta em https://www.emailjs.com/
